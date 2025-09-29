@@ -14,4 +14,9 @@ app.listen(PORT, () => {
     console.log(`Serveur sur port ${PORT}`);
 });
 
+//middleware
+app.use((req, res, next) => {
+    res.status(404).render('404');
+});
+
 module.exports = app;

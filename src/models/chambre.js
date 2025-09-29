@@ -20,27 +20,39 @@ class Chambre {
 
     // Récupérer une chambre par ID
     static async findById(id) {
-    try {
-    const [rows] = await db.execute('SELECT * FROM chambres WHERE id = ?', [id]);
-    return rows.length > 0 ? new Chambre(rows[0]) : null;
-    } catch (error) {
-    throw new Error('Erreur lors de la récupération de la chambre: ' + error.message);
-    }
+        try {
+            const [rows] = await db.execute('SELECT * FROM chambres WHERE id = ?', [id]);
+            return rows.length > 0 ? new Chambre(rows[0]) : null;
+        } catch (error) {
+            throw new Error('Erreur lors de la récupération de la chambre: ' + error.message);
+        }
     }
     // Créer une chambre
-    static async create(ChambreId){
+    static async create(chambreData){
         try{
-            const [rows] = await db.execute('INSERT INTO chambres (idChambre, numero, capacite, disponibilite) VALUES (?, ?, ?, ?)', [ChambreId.idChambre, ChambreId.numero, ChambreId.capacite, ChambreId.disponibilite]);
+            const [result] = await db.execute('INSERT INTO chambres (idChambre, numero, capacite, disponibilite) VALUES (?, ?, ?, ?)', [chambreData.idChambre, chambreData.numero, chambreData.capacite, chambreData.disponibilite]);
             return result.insertId;
         } catch (error) {
             throw new Error('Erreur lors de la création de la chambre: ' + error.message);
         }
     }
     // Mettre à jour une chambre
-    static async update(ChambreID){
+    static async update(chambreData){
         try{
-            const [rows] = await db.execute('UPDATE chambres SET numero = ?, capacite = ?, disponibilite = ? WHERE id = ?', [ChambreID.numero, ChambreID.capacite, ChambreID.disponibilite, ChambreID.id]);
-            return rows.lengh > 0 ? new Chambre
+            const [result] = await db.execute('UPDATE chambres SET numero = ?, capacite = ?, disponibilite = ? WHERE id = ?', [chambreData.numero, chambreData.capacite, chambreData.disponibilite, chambreData.id]);
+            return result.affectedRows > 0;
+        }
+        catch (error) {
+            throw new Error('Erreur lors de la mise à jour de la chambre: ' + error.message);
+        }
+    }
+    // Supprimer une chambre
+    static async delete(id){
+        try{
+            const [result] = await db.execute('DELETE FROM chambres WHERE id = ?', [id]);
+            return result.affectedRows > 0;
+        } catch (error) {
+            throw new Error('Erreur lors de la suppression de la chambre: ' + error.message);
         }
     }
 
