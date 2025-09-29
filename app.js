@@ -1,12 +1,12 @@
-const express = require('express');
-const path = require('path');
+const express = require('./node_modules/express');
+const path = require('./node_modules/path');
 
 const app = express();
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, 'views'));
 
-const routes = require('../src/routes');
+const routes = require('./src/routes');
 app.use('/', routes);
 
 const PORT = 3000;
