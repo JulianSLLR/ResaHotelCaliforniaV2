@@ -20,12 +20,12 @@ class Chambre {
 
     // Récupérer une chambre par ID
     static async findById(id) {
-        try {
-            const [rows] = await db.execute('SELECT * FROM chambres WHERE id = ?', [id]);
-            return rows.length > 0 ? new Chambre(rows[0]) : null;
-        } catch (error) {
-            throw new Error('Erreur lors de la récupération de la chambre: ' + error.message);
-        }
+    try {
+    const [rows] = await db.execute('SELECT * FROM chambres WHERE id = ?', [id]);
+    return rows.length > 0 ? new Chambre(rows[0]) : null;
+    } catch (error) {
+    throw new Error('Erreur lors de la récupération de la chambre: ' + error.message);
+    }
     }
     // Créer une chambre
     static async create(chambreData){
@@ -40,7 +40,10 @@ class Chambre {
     static async update(chambreData){
         try{
             const [result] = await db.execute('UPDATE chambres SET numero = ?, capacite = ?, disponibilite = ? WHERE id = ?', [chambreData.numero, chambreData.capacite, chambreData.disponibilite, chambreData.id]);
-            return result.affectedRows > 0;
+            this.numero = chambreData.numero;
+            this.capacite = chambreData.capacite;
+            this.disponibilite = chambreData.disponibilite;
+            return true;
         }
         catch (error) {
             throw new Error('Erreur lors de la mise à jour de la chambre: ' + error.message);
@@ -50,12 +53,20 @@ class Chambre {
     static async delete(id){
         try{
             const [result] = await db.execute('DELETE FROM chambres WHERE id = ?', [id]);
-            return result.affectedRows > 0;
+            return true;
         } catch (error) {
             throw new Error('Erreur lors de la suppression de la chambre: ' + error.message);
         }
     }
-
+    // Verifier si une chambre est disponible
+    static async isAvailable(id){
+        try{
+            const [rows] = await db.execute('SELECT * FROM chambres WHERE id = ? AND disponibilite = 1', [id]);
+            return rows.length > 0;
+        } catch (error) {
+            throw new Error('Erreur lors de la vérification de la disponibilité de la chambre: ' + error.message);
+        }
+    }
     
 
 }
