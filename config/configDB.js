@@ -4,7 +4,7 @@ const configDB = {
     user: 'sql7800665',
     password: 'XMPpCEQnyj',
     database: 'sql7800665',
-    port: 3306,
+    port: 3306
 };
 
 module.exports = configDB;
