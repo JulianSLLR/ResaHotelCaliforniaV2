@@ -11,7 +11,7 @@ app.use('/', routes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Serveur sur port ${PORT}`);
+    console.log(`Serveur sur port ${PORT} : adresse http://localhost:${PORT}`);
 });
 
 module.exports = app;
