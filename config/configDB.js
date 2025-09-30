@@ -1,9 +1,10 @@
 // Configuration de la base de données
 const configDB = {
-    host: '172.30.217.109',
-    user: 'root',
-    password: '',
-    database: 'hotel_reservation_nodejs'
+    host: 'sql7.freesqldatabase.com',
+    user: 'sql7800665',
+    password: 'XMPpCEQnyj',
+    database: 'sql7800665',
+    port: 3306,
 };
 
 module.exports = configDB;
