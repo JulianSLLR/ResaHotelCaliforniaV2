@@ -1,8 +1,16 @@
 const Chambre = require('../models/chambre');
 
+/**
+ * Controller pour les chambres
+ */
+
 class ChambreController {
-    // Récuperer toutes les chambres
-    static async getAll(req, res){
+    /**
+     * Afficher la liste des chambres
+     * @param {Object} req - L'objet de la requête
+     * @param {Object} res - L'objet de la réponse
+     */
+    static async getAll(req, res) {
         try {
             const chambres = await Chambre.findAll();
             res.render('chambres/index', { chambres });
@@ -11,18 +19,34 @@ class ChambreController {
             res.status(500).send('Erreur lors de la récupération des chambres');
         }
     }
-    // Récuperer une chambre par ID
-    static async getByID(req, res){
+    /**
+     * Afficher une chambre
+     * @param {Object} req - L'objet de la requête
+     * @param {Object} res - L'objet de la réponse
+     */
+    static async getOne(req, res) {
         try {
             const chambre = await Chambre.findById(req.params.id);
-            res.render('chambres/show', { chambre });
+            res.render('chambres/showOne', { chambre });
         } catch (error) {
             console.error(error);
             res.status(500).send('Erreur lors de la récupération de la chambre');
         }
     }
-    // Creer une chambre
-    static async create(req, res){
+    /**
+     * Afficher le formulaire de création d'une chambre
+     * @param {Object} req - L'objet de la requête
+     * @param {Object} res - L'objet de la réponse
+     */
+    static async createForm(req, res) {
+        res.render('chambres/create');
+    }
+    /**
+     * Créer une chambre
+     * @param {Object} req - L'objet de la requête
+     * @param {Object} res - L'objet de la réponse
+     */
+    static async create(req, res) {
         try {
             const chambre = await Chambre.create(req.body);
             res.redirect('/chambres');
@@ -31,18 +55,54 @@ class ChambreController {
             res.status(500).send('Erreur lors de la création de la chambre');
         }
     }
-    // Mettre à jour une chambre
-    static async update(req, res){
+    /**
+     * Afficher le formulaire de modification d'une chambre
+     * @param {Object} req - L'objet de la requête
+     * @param {Object} res - L'objet de la réponse
+     */
+    static async updateForm(req, res) {
         try {
-            const chambre = await Chambre.update(req.body);
+            const chambre = await Chambre.findById(req.params.id);
+            res.render('chambres/edit', { chambre });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Erreur lors de la récupération de la chambre');
+        }
+    }
+    /**
+     * Traiter la modification d'une chambre
+     * @param {Object} req - L'objet de la requête
+     * @param {Object} res - L'objet de la réponse
+     */
+    static async update(req, res) {
+        try {
+            const chambre = await Chambre.update(req.params.id, req.body);
             res.redirect('/chambres');
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erreur lors de la mise à jour de la chambre');
+            res.status(500).send('Erreur lors de la modification de la chambre');
         }
     }
-    // Supprimer une chambre
-    static async delete(req, res){
+    /**
+     * Afficher la suppression d'une chambre
+     * @param {Object} req - L'objet de la requête
+     * @param {Object} res - L'objet de la réponse
+     */
+    static async deleteForm(req, res) {
+        try {
+            const chambre = await Chambre.findById(req.params.id);
+            res.render('chambres/delete', { chambre });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Erreur lors de la récupération de la chambre');
+        }
+    }
+    /**
+     * Traiter la suppression d'une chambre
+     * @param {Object} req - L'objet de la requête
+     * @param {Object} res - L'objet de la réponse
+     */
+    static async delete(req, res) {
         try {
             const chambre = await Chambre.delete(req.params.id);
             res.redirect('/chambres');
@@ -51,20 +111,7 @@ class ChambreController {
             res.status(500).send('Erreur lors de la suppression de la chambre');
         }
     }
-    // Verifier si une chambre est disponible
-    static async isAvailable(req, res){
-        try {
-            const chambre = await Chambre.isAvailable(req.params.id);
-            res.render('chambres/show', { chambre });
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Erreur lors de la vérification de la disponibilité de la chambre');
-        }
-    }
+
+    
 }
-
-
-
-
-
 module.exports = ChambreController;

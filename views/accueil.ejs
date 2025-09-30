@@ -3,13 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil Hôtel</title>
+    <title>Accueil - Hôtel California</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold text-blue-600 text-center mb-8">Bienvenue à l'Hôtel</h1>
-        <p class="text-xl text-blue-600 text-center">Page d'accueil de notre système de réservation d'hôtel.</p>
+<body class="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 min-h-screen">
+    <%- include('partials/navbar') %>
+    
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h1 class="text-6xl font-bold text-amber-900 mb-4">
+                🌴 Bienvenue à l'Hôtel California 🌴
+            </h1>
+        </div>
+
+        <!-- Cartes de services -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <!-- Carte Chambres -->
+            <a href="/chambres" class="group">
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition duration-300 border-2 border-amber-200 hover:border-amber-400">
+                    <div class="text-6xl text-center mb-4">🛏️</div>
+                    <h2 class="text-2xl font-bold text-amber-900 text-center mb-4">Nos Chambres</h2>
+                    <p class="text-amber-700 text-center">
+                        Découvrez nos chambres luxueuses et confortables pour un séjour parfait.
+                    </p>
+                    <div class="text-center mt-6">
+                        <span class="text-amber-600 group-hover:text-amber-800 font-semibold">
+                            Explorer →
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Carte Réservations -->
+            <a href="/reservations" class="group">
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition duration-300 border-2 border-amber-200 hover:border-amber-400">
+                    <div class="text-6xl text-center mb-4">📅</div>
+                    <h2 class="text-2xl font-bold text-amber-900 text-center mb-4">Réservations</h2>
+                    <p class="text-amber-700 text-center">
+                        Réservez votre séjour en quelques clics et profitez de nos offres exclusives.
+                    </p>
+                    <div class="text-center mt-6">
+                        <span class="text-amber-600 group-hover:text-amber-800 font-semibold">
+                            Réserver →
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Carte Clients -->
+            <a href="/client" class="group">
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition duration-300 border-2 border-amber-200 hover:border-amber-400">
+                    <div class="text-6xl text-center mb-4">👤</div>
+                    <h2 class="text-2xl font-bold text-amber-900 text-center mb-4">Espace Client</h2>
+                    <p class="text-amber-700 text-center">
+                        Gérez votre compte et consultez l'historique de vos réservations.
+                    </p>
+                    <div class="text-center mt-6">
+                        <span class="text-amber-600 group-hover:text-amber-800 font-semibold">
+                            Accéder →
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
+
+    <%- include('partials/footer') %>
 </body>
 </html>
