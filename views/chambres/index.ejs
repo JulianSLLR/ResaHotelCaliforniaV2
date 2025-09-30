@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Chambres - Hôtel California</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <%- include('../partials/navbar') %>
+    
+    <div class="max-w-6xl mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-2">Chambres</h1>
+        <p class="text-gray-600 mb-4"><%= chambres.length %> chambre(s) disponible(s)</p>
+
+        <div class="mb-4">
+            <a href="/chambres/create" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Ajouter une chambre</a>
+        </div>
+
+        <% if (chambres.length === 0) { %>
+            <div class="bg-white border p-4">
+                <p><strong>Aucune chambre disponible</strong></p>
+                <p>Commencez par ajouter une chambre.</p>
+            </div>
+        <% } else { %>
+            <table class="w-full bg-white border">
+                <thead>
+                    <tr class="border-b">
+                        <th class="text-left p-3">Numéro</th>
+                        <th class="text-left p-3">Capacité</th>
+                        <th class="text-left p-3">Statut</th>
+                        <th class="text-left p-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let chambre of chambres) { %>
+                        <tr class="border-b">
+                            <td class="p-3"><%= chambre.numero %></td>
+                            <td class="p-3"><%= chambre.capacite %> personne(s)</td>
+                            <td class="p-3">
+                                <% if (chambre.disponibilite == 1) { %>
+                                    Disponible
+                                <% } else { %>
+                                    Occupée
+                                <% } %>
+                            </td>
+                            <td class="p-3">
+                                <a href="/chambres/<%= chambre.idChambre %>" class="text-blue-600 hover:underline mr-2">Voir</a>
+                                <a href="/chambres/<%= chambre.idChambre %>/edit" class="text-blue-600 hover:underline mr-2">Modifier</a>
+                                <a href="/chambres/<%= chambre.idChambre %>/delete" class="text-red-600 hover:underline">Supprimer</a>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>
