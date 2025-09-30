@@ -9,14 +9,13 @@ const router = express.Router();
 // Afficher toutes les chambres
 router.get('/', chambreController.getAll);
 
-// Afficher une chambre spécifique
-router.get('/:id', chambreController.getOne);
-
-// Afficher le formulaire de création
+// Afficher le formulaire de création (AVANT /:id)
 router.get('/create', chambreController.createForm);
 // Créer une chambre (traitement du formulaire)
 router.post('/', chambreController.create);
 
+// Afficher une chambre spécifique
+router.get('/:id', chambreController.getOne);
 
 // Afficher le formulaire de modification
 router.get('/:id/edit', chambreController.updateForm);
