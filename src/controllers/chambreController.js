@@ -76,7 +76,7 @@ class ChambreController {
      */
     static async update(req, res) {
         try {
-            const chambre = await Chambre.update(req.params.id, req.body);
+            const chambre = await Chambre.update(req.body);
             res.redirect('/chambres');
         } catch (error) {
             console.error(error);

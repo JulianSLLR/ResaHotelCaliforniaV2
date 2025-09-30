@@ -50,7 +50,7 @@ class Chambre {
      */
     static async create(chambreData){
         try{
-            const [result] = await db.execute('INSERT INTO chambres (idChambre, numero, capacite, disponibilite) VALUES (?, ?, ?, ?)', [chambreData.idChambre, chambreData.numero, chambreData.capacite, chambreData.disponibilite]);
+            const [result] = await db.execute('INSERT INTO chambres (numero, capacite, disponibilite) VALUES (?, ?, ?)', [chambreData.numero, chambreData.capacite, chambreData.disponibilite]);
             return result.insertId;
         } catch (error) {
             throw new Error('Erreur lors de la création de la chambre: ' + error.message);
@@ -93,7 +93,7 @@ class Chambre {
      */
     static async isAvailable(id){
         try{
-            const [rows] = await db.execute('SELECT * FROM chambres WHERE idChambre = ? AND disponibilite = 1', [id]);
+            const [rows] = await db.execute('SELECT * FROM chambres WHERE numero = ? AND disponibilite = 1', [id]);
             return rows.length > 0;
         } catch (error) {
             throw new Error('Erreur lors de la vérification de la disponibilité de la chambre: ' + error.message);

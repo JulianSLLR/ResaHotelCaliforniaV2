@@ -11,7 +11,7 @@ router.get('/', chambreController.getAll);
 // Afficher le formulaire de création
 router.get('/create', chambreController.createForm);
 // Créer une chambre (traitement du formulaire)
-router.post('/', chambreController.create);
+router.post('/create', chambreController.create);
 // Afficher une chambre spécifique
 router.get('/:id', chambreController.getOne);
 // Afficher le formulaire de modification
