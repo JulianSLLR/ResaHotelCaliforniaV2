@@ -24,7 +24,7 @@ class Chambre {
     static async findAll() {
         try {
             const [rows] = await db.execute('SELECT * FROM chambres');
-            return rows.map(row => new Chambre(row));
+            return rows.map(row => new Chambre(row)); 
         } catch (error) {
             throw new Error('Erreur lors de la récupération des chambres:' + error.message);
         }

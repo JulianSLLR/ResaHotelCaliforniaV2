@@ -7,8 +7,12 @@
     <title>404</title>
 </head>
 <body>
-    <h1 class="text-center text-4xl">404</h1>
-    <p class="text-center text-xl">Page non trouvée</p>
-    <a href="/" class="text-center font-bold text-blue-600">Retour à la page d'accueil</a>
+    <%- include('./partials/navbar') %>
+    <div class="container mx-auto px-4 py-12"> 
+        <h1 class="text-center text-4xl font-bold text-amber-900"> 404 </h1>
+        <p class="text-center text-xl text-amber-700"> Page non trouvée </p>
+        <a href="/" class="text-center font-bold text-amber-600">Retour à la page d'accueil</a>
+    </div>
+    <%- include('./partials/footer') %>
 </body>
 </html>

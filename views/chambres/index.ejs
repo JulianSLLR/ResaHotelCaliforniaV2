@@ -18,7 +18,7 @@
         </div>
 
         <div class="text-center mb-8">
-            <a href="/chambres/new" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 inline-flex items-center space-x-2">
+            <a href="/chambres/create" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 inline-flex items-center space-x-2">
                 <span>➕</span>
                 <span>Ajouter une chambre</span>
             </a>
@@ -36,6 +36,7 @@
                             <div class="flex items-center justify-between">
                                 <span class="font-semibold text-amber-900">Capacité:</span>
                                 <span class="text-amber-700 text-lg">
+
                                     <%= chambre.capacite %> personne<%= chambre.capacite > 1 ? 's' : '' %>
                                 </span>
                             </div>
