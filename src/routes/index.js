@@ -1,7 +1,7 @@
 import express from 'express';
 import chambresRoutes from './chambres.js';
 
-const router = express.Router();
+const router = express.Router(); 
 
 // Page d'accueil
 router.get('/', (req, res) => {
@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
 
 // Routes pour les chambres
 router.use('/chambres', chambresRoutes);
+
 
 
 

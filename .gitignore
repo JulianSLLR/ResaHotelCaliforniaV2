@@ -3,7 +3,7 @@ config/db.ini
 .env
 .env.local
 .env.production
-config/database.ini
+config/configDB.js
 # Dépendances
 node_modules/
 npm-debug.log*
