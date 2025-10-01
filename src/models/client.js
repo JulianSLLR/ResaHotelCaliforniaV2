@@ -20,8 +20,8 @@ class Client {
     }
 
     /**
-     * Récupère tout les clients
-     * @returns {Array} La liste des clients
+     * Récupérer tout les clients
+     * @returns {Array} - La liste des clients
      */
     static async findAll() {
         try {
@@ -33,9 +33,9 @@ class Client {
     }
 
     /**
-     * Récupère un client par ID
-     * @param {*} id 
-     * @returns 
+     * Récupérer un client par ID
+     * @param {*} id - L'ID du client
+     * @returns {Chambre | null} - Le client correspondant ou null si elle n'existe pas
      */
     static async findById(id) {
         try {
@@ -47,9 +47,9 @@ class Client {
     }
 
     /**
-     * Crée un nouveau client
-     * @param {*} clientData 
-     * @returns 
+     * Créer un nouveau client
+     * @param {*} clientData - Les données du client à créer
+     * @returns {number} - L'ID du client crée
      */
     static async create(clientData) {
         try {
@@ -68,8 +68,8 @@ class Client {
 
     /**
      * Mettre à jour un client
-     * @param {*} clientData 
-     * @returns 
+     * @param {*} clientData - Les données de la chambre à mettre à jour
+     * @returns {boolean} - true si la mise à jour a réussi, false sinon
      */
     async update(clientData) {
         try {
@@ -93,8 +93,8 @@ class Client {
 
     /**
      * Supprimer un client
-     * @param {*} id 
-     * @returns 
+     * @param {*} id - L'ID de la chambre à supprimer
+     * @returns {boolean} - true si la suppression a réussi, false sinon
      */
     async delete(id) {
         try {
