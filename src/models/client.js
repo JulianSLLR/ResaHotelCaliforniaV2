@@ -1,5 +1,4 @@
-const db = require('../../config/connexion.js')
-// import db from '../../config/connexion.js';
+import db from '../../config/connexion.js';
 
 class Client {
     
