@@ -6,7 +6,6 @@ const router = express.Router();
 
 // Afficher toutes les clients
 router.get('/', clientController.getAll);
-
 // Afficher un client spécifique
 router.get('/:id', clientController.getOne);
 

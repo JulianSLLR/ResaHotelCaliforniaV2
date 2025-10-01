@@ -1,21 +1,18 @@
 import express from 'express';
 import chambreController from '../controllers/chambreController.js';
-
 const router = express.Router();
 
-
-//CRUD - Routes pour les chambres
+// CRUD - Routes pour les chambres
 
 // Afficher toutes les chambres
 router.get('/', chambreController.getAll);
+// Afficher une chambre spécifique
+router.get('/:id', chambreController.getOne);
 
 // Afficher le formulaire de création (AVANT /:id)
 router.get('/create', chambreController.createForm);
 // Créer une chambre (traitement du formulaire)
 router.post('/', chambreController.create);
-
-// Afficher une chambre spécifique
-router.get('/:id', chambreController.getOne);
 
 // Afficher le formulaire de modification
 router.get('/:id/edit', chambreController.updateForm);
