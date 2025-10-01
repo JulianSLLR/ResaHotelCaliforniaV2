@@ -3,8 +3,8 @@ import Chambre from '../models/chambre.js';
 /**
  * Controller pour les chambres
  */
-
 class ChambreController {
+
     /**
      * Afficher la liste des chambres
      * @param {Object} req - L'objet de la requête
@@ -19,6 +19,7 @@ class ChambreController {
             res.status(500).send('Erreur lors de la récupération des chambres');
         }
     }
+
     /**
      * Afficher une chambre
      * @param {Object} req - L'objet de la requête
@@ -33,6 +34,7 @@ class ChambreController {
             res.status(500).send('Erreur lors de la récupération de la chambre');
         }
     }
+
     /**
      * Afficher le formulaire de création d'une chambre
      * @param {Object} req - L'objet de la requête
@@ -41,6 +43,7 @@ class ChambreController {
     static async createForm(req, res) {
         res.render('chambres/create');
     }
+
     /**
      * Créer une chambre
      * @param {Object} req - L'objet de la requête
@@ -55,6 +58,7 @@ class ChambreController {
             res.status(500).send('Erreur lors de la création de la chambre');
         }
     }
+
     /**
      * Afficher le formulaire de modification d'une chambre
      * @param {Object} req - L'objet de la requête
@@ -69,6 +73,7 @@ class ChambreController {
             res.status(500).send('Erreur lors de la récupération de la chambre');
         }
     }
+
     /**
      * Traiter la modification d'une chambre
      * @param {Object} req - L'objet de la requête
@@ -83,6 +88,7 @@ class ChambreController {
             res.status(500).send('Erreur lors de la modification de la chambre');
         }
     }
+
     /**
      * Afficher la suppression d'une chambre
      * @param {Object} req - L'objet de la requête
@@ -97,6 +103,7 @@ class ChambreController {
             res.status(500).send('Erreur lors de la récupération de la chambre');
         }
     }
+    
     /**
      * Traiter la suppression d'une chambre
      * @param {Object} req - L'objet de la requête
@@ -112,6 +119,6 @@ class ChambreController {
         }
     }
 
-    
+
 }
 export default ChambreController;
