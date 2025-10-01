@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Clients - Hôtel California</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <%- include('../partials/navbar') %>
+    
+    <div class="max-w-6xl mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-2">Clients</h1>
+        <p class="text-gray-600 mb-4"><%= clients.length %> Nombre de clients</p>
+
+        <div class="mb-4">
+            <a href="/clients/create" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Ajouter un client</a>
+        </div>
+
+        <% if (clients.length === 0) { %>
+            <div class="bg-white border p-4">
+                <p><strong>Il n'existe aucun client</strong></p>
+                <p>Commencez par ajouter un client.</p>
+            </div>
+        <% } else { %>
+            <table class="w-full bg-white border">
+                <thead>
+                    <tr class="border-b">
+                        <th class="text-left p-3">Nom</th>
+                        <th class="text-left p-3">Téléphone</th>
+                        <th class="text-left p-3">Email</th>
+                        <th class="text-left p-3">Nombre de personnes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let client of clients) { %>
+                        <tr class="border-b">
+                            <td class="p-3"><%= client.numero %></td>
+                            <td class="p-3"><%= client.telephone %></td>
+                            <td class="p-3"><%= client.email %></td>
+                            <td class="p-3"><%= client.nbPersonnes %></td>
+                            </td>
+                            <td class="p-3">
+                                <a href="/clients/<%= client.idClient %>" class="text-blue-600 hover:underline mr-2">Voir</a>
+                                <a href="/clients/<%= client.idClient %>/edit" class="text-blue-600 hover:underline mr-2">Modifier</a>
+                                <a href="/clients/<%= client.idClient %>/delete" class="text-red-600 hover:underline">Supprimer</a>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>
