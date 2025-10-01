@@ -20,11 +20,11 @@ router.get('/:id', chambreController.getOne);
 // Afficher le formulaire de modification
 router.get('/:id/edit', chambreController.updateForm);
 // Mettre à jour une chambre (traitement du formulaire)
-router.put('/:id', chambreController.update);
+router.post('/:id/edit', chambreController.update);
 
 // Afficher la confirmation de suppression
 router.get('/:id/delete', chambreController.deleteForm);
 // Supprimer une chambre
-router.delete('/:id', chambreController.delete);
+router.post('/:id/delete', chambreController.delete);
 
 export default router;

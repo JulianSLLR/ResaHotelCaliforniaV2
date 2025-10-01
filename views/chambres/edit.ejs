@@ -14,6 +14,7 @@
         
         <div class="bg-white border p-6">
             <form action="/chambres/<%= chambre.idChambre %>/edit" method="post">
+                <input type="hidden" name="idChambre" value="<%= chambre.idChambre %>">
                 <div class="mb-4">
                     <label class="block font-bold mb-1">Numéro</label>
                     <input type="text" name="numero" value="<%= chambre.numero %>" required class="w-full border p-2">

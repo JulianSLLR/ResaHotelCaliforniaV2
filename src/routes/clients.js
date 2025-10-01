@@ -18,11 +18,11 @@ router.post('/', clientController.create);
 // Afficher le formulaire de modification
 router.get('/:id/edit', clientController.updateForm);
 // Mettre à jour un client (traitement du formulaire)
-router.put('/:id', clientController.update);
+router.post('/:id/edit', clientController.update);
 
 // Afficher la confirmation de suppression
 router.get('/:id/delete', clientController.deleteForm);
 // Supprimer un client
-router.delete('/:id', clientController.delete);
+router.post('/:id/delete', clientController.delete);
 
 export default router;
