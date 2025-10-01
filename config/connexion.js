@@ -1,6 +1,6 @@
-const mysql = require('mysql2/promise');
-const configDB = require('./configDB');
+import mysql from 'mysql2/promise';
+import configDB from './configDB.js';
 
 const connexion = mysql.createPool(configDB);
 
-module.exports = connexion;
+export default connexion;

@@ -1,5 +1,5 @@
-const express = require('express');
-const chambreController = require('../controllers/chambreController');
+import express from 'express';
+import chambreController from '../controllers/chambreController.js';
 
 const router = express.Router();
 
@@ -27,4 +27,4 @@ router.get('/:id/delete', chambreController.deleteForm);
 // Supprimer une chambre
 router.delete('/:id', chambreController.delete);
 
-module.exports = router;
+export default router;

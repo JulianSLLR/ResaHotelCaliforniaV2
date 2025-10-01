@@ -1,4 +1,4 @@
-const Chambre = require('../models/chambre');
+import Chambre from '../models/chambre.js';
 
 /**
  * Controller pour les chambres
@@ -114,4 +114,4 @@ class ChambreController {
 
     
 }
-module.exports = ChambreController;
+export default ChambreController;

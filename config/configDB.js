@@ -7,4 +7,4 @@ const configDB = {
     port: 3306
 };
 
-module.exports = configDB;
+export default configDB;

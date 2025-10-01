@@ -1,5 +1,5 @@
-const express = require('express');
-const clientController = require('../controllers/clientController');
+import express from 'express';
+import clientController from '../controllers/clientController.js';
 const router = express.Router();
 
 // CRUD - Routes pour les clients
@@ -25,4 +25,4 @@ router.get('/:id/delete', clientController.deleteForm);
 // Supprimer un client
 router.delete('/:id', clientController.delete);
 
-module.exports = router;
+export default router;

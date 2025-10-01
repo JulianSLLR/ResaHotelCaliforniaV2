@@ -1,4 +1,4 @@
-const db = require('../../config/connexion.js');
+import db from '../../config/connexion.js';
 
 
 class Chambre {
@@ -104,4 +104,4 @@ class Chambre {
 }
 
 
-module.exports = Chambre;
+export default Chambre;

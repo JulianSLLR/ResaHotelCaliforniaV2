@@ -1,5 +1,5 @@
-const express = require('express');
-const chambresRoutes = require('./chambres');
+import express from 'express';
+import chambresRoutes from './chambres.js';
 
 const router = express.Router();
 
@@ -11,4 +11,4 @@ router.get('/', (req, res) => {
 // Routes pour les chambres
 router.use('/chambres', chambresRoutes);
 
-module.exports = router;
+export default router;
