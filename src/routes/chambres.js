@@ -9,7 +9,7 @@ router.get('/', chambreController.getAll);
 // Afficher une chambre spécifique
 router.get('/:id', chambreController.getOne);
 
-// Afficher le formulaire de création (AVANT /:id)
+// Afficher le formulaire de création 
 router.get('/create', chambreController.createForm);
 // Créer une chambre (traitement du formulaire)
 router.post('/', chambreController.create);

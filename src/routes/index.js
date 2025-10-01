@@ -11,8 +11,10 @@ router.get('/', (req, res) => {
 
 // Routes pour les chambres
 router.use('/chambres', chambresRoutes);
-
 // Routes pour les clients
 router.use('/clients', clientsRoutes);
 
 export default router;
+
+
+

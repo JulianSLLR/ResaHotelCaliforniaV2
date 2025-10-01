@@ -12,7 +12,7 @@ class ChambreController {
      */
     static async getAll(req, res) {
         try {
-            const chambres = await Chambre.findAll();
+            const chambres = await Chambre.findAll(); 
             res.render('chambres/index', { chambres });
         } catch (error) {
             console.error(error);
