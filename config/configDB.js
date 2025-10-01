@@ -1,10 +1,13 @@
 // Configuration de la base de données
+import database from './database.ini';
+
+
 const configDB = {
-    host: 'sql7.freesqldatabase.com',
-    user: 'sql7800665',
-    password: 'XMPpCEQnyj',
-    database: 'sql7800665',
-    port: 3306
+    host: database.host,
+    user: database.user,
+    password: database.password,
+    database: database.name,
+    port: database.port
 };
 
 export default configDB;

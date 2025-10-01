@@ -11,4 +11,9 @@ router.get('/', (req, res) => {
 // Routes pour les chambres
 router.use('/chambres', chambresRoutes);
 
+
+
 export default router;
+
+
+
