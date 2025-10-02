@@ -1,5 +1,6 @@
 # Fichiers sensibles (contiennent des mots de passe)
-config/db.ini
+
+config/database.ini
 .env
 .env.local
 .env.production

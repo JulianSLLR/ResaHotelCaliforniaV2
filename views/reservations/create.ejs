@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une réservation - Hôtel California</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <%- include('../partials/navbar') %>
+    
+    <div class="max-w-6xl mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-4">Ajouter une réservation</h1>
+        
+        <div class="bg-white border p-6">
+            <form action="/reservations/" method="POST">
+
+                <div class="mb-4">
+                    <label class="block font-bold mb-1">Client</label>
+                    <select name="idClient" required class="w-full border p-2">
+                        <option value="">Sélectionner un client</option>
+                        <% for (let client of clients) { %>
+                            <option value="<%= client.idClient %>">
+                                <%= client.nom %> <%= client.prenom %> (ID: <%= client.idClient %>)
+                            </option>
+                        <% } %>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                <label class="block font-bold mb-1">Chambre</label>
+                <select name="idChambre" required class="w-full border p-2">
+                    <option value="">Sélectionner une chambre</option>
+                    <% for (let chambre of chambres) { %>
+                        <option value="<%= chambre.idChambre %>">
+                            Chambre <%= chambre.numero %> - <%= chambre.capacite %> personne(s)
+                            <% if (chambre.disponibilite == 1) { %>(Disponible)<% } else { %>(Occupée)<% } %>
+                        </option>
+                    <% } %>
+                </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block font-bold mb-1">Date de début</label>
+                    <input type="date" name="dateDebut" required class="w-full border p-2">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block font-bold mb-1">Date de fin</label>
+                    <input type="date" name="dateFin" required class="w-full border p-2">
+                </div>
+                
+                <div class="flex gap-2">
+                    <a href="/reservations" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Annuler</a>
+                    <button type="submit" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Créer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <%- include('../partials/footer') %>
+</body>
+</html>
