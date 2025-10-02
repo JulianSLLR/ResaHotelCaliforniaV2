@@ -28,19 +28,37 @@
                     <table class="w-full bg-white border">
                         <thead>
                             <tr class="border-b">
-                                <th class="text-left p-3">Numéro</th>
-                                <th class="text-left p-3">Capacité</th>
+                                <th class="text-left p-3">Client</th>
+                                <th class="text-left p-3">Chambre</th>
+                                <th class="text-left p-3">Séjour</th>
+                                <th class="text-left p-3">Durée</th>
                                 <th class="text-left p-3">Statut</th>
                                 <th class="text-left p-3">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <% for (let reservation of reservations) { %>
+                                <% 
+                                  const now = new Date();
+                                  const start = new Date(reservation.dateDebut);
+                                  const end = new Date(reservation.dateFin);
+                                  let statut = '';
+                                  if (now < start) statut = 'À venir';
+                                  else if (now >= start && now <= end) statut = 'En cours';
+                                  else statut = 'Terminée';
+                                  const MS_PER_DAY = 1000 * 60 * 60 * 24;
+                                  const nights = Math.max(1, Math.round((end - start) / MS_PER_DAY));
+                                  const badgeClass =
+                                    statut === 'En cours' ? 'bg-green-100 text-green-800' :
+                                    (statut === 'À venir' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800');
+                                %>
                                 <tr class="border-b">
-                                    <td class="p-3"><%= reservation.numero %></td>
-                                    <td class="p-3"><%= reservation.capacite %> personne(s)</td>
+                                    <td class="p-3"><%= reservation.nomClient %></td>
+                                    <td class="p-3">Chambre <%= reservation.numero %> <span class="text-xs text-gray-500">(cap. <%= reservation.capacite %>)</span></td>
+                                    <td class="p-3">Du <%= reservation.getFormattedDateDebut() %> au <%= reservation.getFormattedDateFin() %></td>
+                                    <td class="p-3"><%= nights %> nuit(s)</td>
                                     <td class="p-3">
-                                        <% if (reservation.disponibilite==1) { %>Disponible<% } else { %>Occupée<% } %>
+                                        <span class="px-2 py-1 text-sm rounded <%= badgeClass %>"><%= statut %></span>
                                     </td>
                                     <td class="p-3">
                                         <a href="/reservations/<%= reservation.idReservation %>" class="text-blue-600 hover:underline mr-2">Voir</a>

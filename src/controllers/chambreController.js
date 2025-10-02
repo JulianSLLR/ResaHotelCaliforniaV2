@@ -97,6 +97,10 @@ class ChambreController {
     static async deleteForm(req, res) {
         try {
             const chambre = await Chambre.findById(req.params.id);
+            if (!chambre) {
+                return res.status(404).send('Chambre non trouvée');
+            }
+            console.log('Chambre à supprimer:', chambre); // Pour le débogage
             res.render('chambres/delete', { chambre });
         } catch (error) {
             console.error(error);

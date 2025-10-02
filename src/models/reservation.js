@@ -9,6 +9,10 @@ class Reservation {
      * @param {number} data.idChambre - L'ID de la chambre
      * @param {number} data.dateDebut - La date de début de la reservation
      * @param {number} data.dateFin - La date de fin de la reservation
+     * @param {number} data.numero - Le numéro de la chambre
+     * @param {number} data.capacite - La capacité de la chambre
+     * @param {number} data.disponibilite - La disponibilité de la chambre
+     * @param {string} data.nom - Le nom du client
      */
     constructor(data) {
         this.idReservation = data.idReservation;
@@ -16,6 +20,32 @@ class Reservation {
         this.idChambre = data.idChambre;
         this.dateDebut = data.dateDebut;
         this.dateFin = data.dateFin;
+        // Données de la chambre
+        this.numero = data.numero;
+        this.capacite = data.capacite;
+        this.disponibilite = data.disponibilite;
+        // Données du client
+        this.nomClient = data.nom;
+    }
+
+    /**
+     * Formater la date de début pour l'affichage
+     * @returns {string} - La date formatée (JJ/MM/AAAA)
+     */
+    getFormattedDateDebut() {
+        if (!this.dateDebut) return '';
+        const date = new Date(this.dateDebut);
+        return date.toLocaleDateString('fr-FR');
+    }
+
+    /**
+     * Formater la date de fin pour l'affichage
+     * @returns {string} - La date formatée (JJ/MM/AAAA)
+     */
+    getFormattedDateFin() {
+        if (!this.dateFin) return '';
+        const date = new Date(this.dateFin);
+        return date.toLocaleDateString('fr-FR');
     }
 
     /**
@@ -24,7 +54,14 @@ class Reservation {
      */
     static async findAll() {
         try {
-            const [rows] = await db.execute('SELECT * FROM reservations');
+            const [rows] = await db.execute(
+                'SELECT r.idReservation, r.idClient, r.idChambre, r.dateDebut, r.dateFin, ' +
+                'c.numero, c.capacite, c.disponibilite, ' +
+                'cl.nom ' +
+                'FROM reservations r ' +
+                'INNER JOIN chambres c ON r.idChambre = c.idChambre ' +
+                'INNER JOIN clients cl ON r.idClient = cl.idClient'
+            );
             return rows.map(row => new Reservation(row));
         } catch (error) {
             throw new Error('Erreur lors de la récupération des réservations: ' + error.message);
@@ -38,7 +75,16 @@ class Reservation {
      */
     static async findById(id) {
         try {
-            const [rows] = await db.execute('SELECT * FROM reservations WHERE idReservation = ?', [id]);
+            const [rows] = await db.execute(
+                'SELECT r.idReservation, r.idClient, r.idChambre, r.dateDebut, r.dateFin, ' +
+                'c.numero, c.capacite, c.disponibilite, ' +
+                'cl.nom ' +
+                'FROM reservations r ' +
+                'INNER JOIN chambres c ON r.idChambre = c.idChambre ' +
+                'INNER JOIN clients cl ON r.idClient = cl.idClient ' +
+                'WHERE r.idReservation = ?',
+                [id]
+            );
             return rows.length > 0 ? new Reservation(rows[0]) : null;
         } catch (error) {
             throw new Error('Erreur lors de la récupération de la réservation: ' + error.message);
