@@ -1,7 +1,7 @@
 import db from '../../config/connexion.js';
 
 class Client {
-    
+
     /**
      * Constructeur de la classe Client
      * @param {Object} data - Les données du client

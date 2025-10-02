@@ -1,61 +1,60 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Réservations - Hôtel California</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50">
     <%- include('../partials/navbar') %>
-    
-    <div class="max-w-6xl mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-2">Réservations</h1>
-        <p class="text-gray-600 mb-4"><%= reservations.length %> réservation(s)</p>
 
-        <div class="mb-4">
-            <a href="/reservations/create" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Ajouter une réservation</a>
+        <div class="max-w-6xl mx-auto p-6">
+            <h1 class="text-2xl font-bold mb-2">Réservations</h1>
+            <p class="text-gray-600 mb-4"><%= reservations.length %> réservation(s)</p>
+
+            <div class="mb-4">
+                <a href="/reservations/create" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Ajouter une réservation</a>
+            </div>
+
+            <% if (reservations.length===0) { %>
+                <div class="bg-white border p-4">
+                    <p><strong>Aucune réservation disponible</strong></p>
+                    <p>Commencez par ajouter une réservation.</p>
+                </div>
+                <% } else { %>
+                    <table class="w-full bg-white border">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left p-3">Numéro</th>
+                                <th class="text-left p-3">Capacité</th>
+                                <th class="text-left p-3">Statut</th>
+                                <th class="text-left p-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (let reservation of reservations) { %>
+                                <tr class="border-b">
+                                    <td class="p-3"><%= reservation.numero %></td>
+                                    <td class="p-3"><%= reservation.capacite %> personne(s)</td>
+                                    <td class="p-3">
+                                        <% if (reservation.disponibilite==1) { %>Disponible<% } else { %>Occupée<% } %>
+                                    </td>
+                                    <td class="p-3">
+                                        <a href="/reservations/<%= reservation.idReservation %>" class="text-blue-600 hover:underline mr-2">Voir</a>
+                                        <a href="/reservations/<%= reservation.idReservation %>/edit" class="text-blue-600 hover:underline mr-2">Modifier</a>
+                                        <a href="/reservations/<%= reservation.idReservation %>/delete" class="text-red-600 hover:underline">Supprimer</a>
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </tbody>
+                    </table>
+                    <% } %>
         </div>
 
-        <% if (reservations.length === 0) { %>
-            <div class="bg-white border p-4">
-                <p><strong>Aucune réservation disponible</strong></p>
-                <p>Commencez par ajouter une réservation.</p>
-            </div>
-        <% } else { %>
-            <table class="w-full bg-white border">
-                <thead>
-                    <tr class="border-b">
-                        <th class="text-left p-3">Numéro</th>
-                        <th class="text-left p-3">Capacité</th>
-                        <th class="text-left p-3">Statut</th>
-                        <th class="text-left p-3">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (let reservation of reservations) { %>
-                        <tr class="border-b">
-                            <td class="p-3"><%= reservation.numero %></td>
-                            <td class="p-3"><%= reservation.capacite %> personne(s)</td>
-                            <td class="p-3">
-                                <% if (reservation.disponibilite == 1) { %>
-                                    Disponible
-                                <% } else { %>
-                                    Occupée
-                                <% } %>
-                            </td>
-                            <td class="p-3">
-                                <a href="/reservations/<%= reservation.idReservation %>" class="text-blue-600 hover:underline mr-2">Voir</a>
-                                <a href="/reservations/<%= reservation.idReservation %>/edit" class="text-blue-600 hover:underline mr-2">Modifier</a>
-                                <a href="/reservations/<%= reservation.idReservation %>/delete" class="text-red-600 hover:underline">Supprimer</a>
-                            </td>
-                        </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        <% } %>
-    </div>
-
-    <%- include('../partials/footer') %>
+        <%- include('../partials/footer') %>
 </body>
+
 </html>

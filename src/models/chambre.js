@@ -1,7 +1,7 @@
 import db from '../../config/connexion.js';
 
 class Chambre {
-    
+
     /**
      * Constructeur de la classe Chambre
      * @param {Object} data - Les données de la chambre
@@ -57,7 +57,7 @@ class Chambre {
             throw new Error('Erreur lors de la création de la chambre: ' + error.message);
         }
     }
-    
+
     /**
      * Mettre à jour une chambre
      * @param {Object} chambreData - Les données de la chambre à mettre à jour

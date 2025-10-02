@@ -6,7 +6,7 @@ import Chambre from '../models/chambre.js';
  * Controller pour les réservations
  */
 class ReservationController {
-    
+
     static async getAll(req, res) {
         try {
             const reservations = await Reservation.findAll();
@@ -26,7 +26,7 @@ class ReservationController {
             res.status(500).send('Erreur lors de la récupération de la réservation');
         }
     }
-    
+
     static async createForm(req, res) {
         try {
             const clients = await Client.findAll();
@@ -37,7 +37,7 @@ class ReservationController {
             res.status(500).send('Erreur lors de la récupération des clients et des chambres');
         }
     }
-    
+
     static async create(req, res) {
         try {
             const reservation = await Reservation.create(req.body);
@@ -47,7 +47,7 @@ class ReservationController {
             res.status(500).send('Erreur lors de la création de la réservation');
         }
     }
-    
+
     static async updateForm(req, res) {
         try {
             const reservation = await Reservation.findById(req.params.id);
@@ -57,7 +57,7 @@ class ReservationController {
             res.status(500).send('Erreur lors de la récupération de la réservation');
         }
     }
-    
+
     static async update(req, res) {
         try {
             const reservation = await Reservation.update(req.body);
@@ -67,7 +67,7 @@ class ReservationController {
             res.status(500).send('Erreur lors de la modification de la réservation');
         }
     }
-    
+
     static async deleteForm(req, res) {
         try {
             const reservation = await Reservation.findById(req.params.id);
@@ -77,7 +77,7 @@ class ReservationController {
             res.status(500).send('Erreur lors de la récupération de la réservation');
         }
     }
-    
+
     static async delete(req, res) {
         try {
             const reservation = await Reservation.delete(req.params.id);
@@ -87,7 +87,7 @@ class ReservationController {
             res.status(500).send('Erreur lors de la suppression de la réservation');
         }
     }
-    
+
 }
 
 export default ReservationController;

@@ -17,7 +17,7 @@ class Reservation {
         this.dateDebut = data.dateDebut;
         this.dateFin = data.dateFin;
     }
-    
+
     /**
      * Récupérer toutes les réservations
      * @returns {Array} - La liste des réservations
@@ -44,7 +44,7 @@ class Reservation {
             throw new Error('Erreur lors de la récupération de la réservation: ' + error.message);
         }
     }
-    
+
     /**
      * Créer une réservation
      * @param {Object} reservationData - Les données de la reservation à créer
