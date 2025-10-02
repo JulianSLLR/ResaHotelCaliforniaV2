@@ -6,8 +6,6 @@ const router = express.Router();
 
 // Afficher toutes les clients
 router.get('/', clientController.getAll);
-// Afficher un client spécifique
-router.get('/:id', clientController.getOne);
 
 // Afficher le formulaire de création
 router.get('/create', clientController.createForm);
@@ -23,5 +21,8 @@ router.post('/:id/edit', clientController.update);
 router.get('/:id/delete', clientController.deleteForm);
 // Supprimer un client
 router.post('/:id/delete', clientController.delete);
+
+// Afficher un client spécifique
+router.get('/:id', clientController.getOne);
 
 export default router;

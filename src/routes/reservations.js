@@ -1,6 +1,5 @@
 import express from 'express';
 import reservationController from '../controllers/reservationController.js';
-
 const router = express.Router();
 
 // CRUD - Routes pour les réservations
@@ -8,10 +7,8 @@ const router = express.Router();
 // Afficher toutes les réservations
 router.get('/', reservationController.getAll);
 
-
 // Afficher le formulaire de création 
 router.get('/create', reservationController.createForm);
-
 // Afficher une réservation spécifique
 router.get('/:id', reservationController.getOne);
 

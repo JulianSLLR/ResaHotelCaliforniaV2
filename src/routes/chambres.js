@@ -6,8 +6,6 @@ const router = express.Router();
 
 // Afficher toutes les chambres
 router.get('/', chambreController.getAll);
-// Afficher une chambre spécifique
-router.get('/:id', chambreController.getOne);
 
 // Afficher le formulaire de création 
 router.get('/create', chambreController.createForm);
@@ -23,5 +21,8 @@ router.post('/:id/edit', chambreController.update);
 router.get('/:id/delete', chambreController.deleteForm);
 // Supprimer une chambre
 router.post('/:id/delete', chambreController.delete);
+
+// Afficher une chambre spécifique
+router.get('/:id', chambreController.getOne);
 
 export default router;
