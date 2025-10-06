@@ -13,7 +13,7 @@
 
         <div class="max-w-6xl mx-auto p-6">
             <h1 class="text-2xl font-bold mb-2">Clients</h1>
-            <p class="text-gray-600 mb-4"><%= clients.length %> Nombre de clients</p>
+            <p class="text-gray-600 mb-4"><%= clients.length %> <%= clients.length > 1 ? "clients" : "clients" %></p>
 
             <div class="mb-4">
                 <a href="/clients/create" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Ajouter un client</a>
@@ -32,12 +32,13 @@
                                 <th class="text-left p-3">Téléphone</th>
                                 <th class="text-left p-3">Email</th>
                                 <th class="text-left p-3">Nombre de personnes</th>
+                                <th class="text-left p-3">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <% for (let client of clients) { %>
                                 <tr class="border-b">
-                                    <td class="p-3"><%= client.numero %></td>
+                                    <td class="p-3"><%= client.nom %></td>
                                     <td class="p-3"><%= client.telephone %></td>
                                     <td class="p-3"><%= client.email %></td>
                                     <td class="p-3"><%= client.nbPersonnes %></td>
