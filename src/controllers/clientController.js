@@ -28,6 +28,9 @@ class ClientController {
     static async getOne(req, res) {
         try {
             const client = await Client.findById(req.params.id);
+            if (!client) {
+                return res.status(404).send('Client non trouvé');
+            }
             res.render('clients/showOne', { client });
         } catch (error) {
             console.error(error);
