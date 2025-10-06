@@ -56,7 +56,7 @@
                                 %>
                                 <tr class="border-b">
                                     <td class="p-3"><%= reservation.nomClient %></td>
-                                    <td class="p-3">Chambre <%= reservation.numero %> <span class="text-xs text-gray-500">(cap. <%= reservation.capacite %>)</span></td>
+                                    <td class="p-3"><%= reservation.numero %> <span class="text-xs text-gray-500">(cap. <%= reservation.capacite %>)</span></td>
                                     <td class="p-3">Du <%= reservation.getFormattedDateDebut() %> au <%= reservation.getFormattedDateFin() %></td>
                                     <td class="p-3"><%= nights %> <%= nights > 1 ? "nuits" : "nuit" %></td>
                                     <td class="p-3">
