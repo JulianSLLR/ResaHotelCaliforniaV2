@@ -100,8 +100,7 @@ class ChambreController {
             if (!chambre) {
                 return res.status(404).send('Chambre non trouvée');
             }
-            console.log('Chambre à supprimer:', chambre); // Pour le débogage
-            res.render('chambres/delete', { chambre });
+            res.render('chambres/delete', { chambre, error: null });
         } catch (error) {
             console.error(error);
             res.status(500).send('Erreur lors de la récupération de la chambre');
@@ -115,11 +114,26 @@ class ChambreController {
      */
     static async delete(req, res) {
         try {
-            const chambre = await Chambre.delete(req.params.id);
+            await Chambre.delete(req.params.id);
             res.redirect('/chambres');
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erreur lors de la suppression de la chambre');
+            
+            // Si l'erreur indique que la chambre est utilisée dans des réservations
+            if (error.message.includes('utilisée dans des réservations')) {
+                // Récupérer la chambre pour l'afficher dans le template d'erreur
+                try {
+                    const chambre = await Chambre.findById(req.params.id);
+                    return res.render('chambres/delete', { 
+                        chambre, 
+                        error: 'Impossible de supprimer cette chambre car elle est utilisée dans des réservations actives.' 
+                    });
+                } catch (findError) {
+                    return res.status(500).send('Erreur lors de la récupération de la chambre');
+                }
+            }
+            
+            res.status(500).send('Erreur lors de la suppression de la chambre: ' + error.message);
         }
     }
 

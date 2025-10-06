@@ -39,6 +39,7 @@ class Chambre {
         try {
             const [rows] = await db.execute('SELECT * FROM chambres WHERE idChambre = ?', [id]);
             return rows.length > 0 ? new Chambre(rows[0]) : null;
+
         } catch (error) {
             throw new Error('Erreur lors de la récupération de la chambre: ' + error.message);
         }
@@ -77,16 +78,36 @@ class Chambre {
     }
 
     /**
+     * Vérifier si une chambre est utilisée dans des réservations
+     * @param {number} id - L'ID de la chambre à vérifier
+     * @returns {boolean} - true si la chambre est utilisée, false sinon
+     */
+    static async hasReservations(id) {
+        try {
+            const [rows] = await db.execute('SELECT COUNT(*) as count FROM reservations WHERE idChambre = ?', [id]);
+            return rows[0].count > 0;
+        } catch (error) {
+            throw new Error('Erreur lors de la vérification des réservations: ' + error.message);
+        }
+    }
+
+    /**
      * Supprimer une chambre
      * @param {number} id - L'ID de la chambre à supprimer
      * @returns {boolean} - true si la suppression a réussi, false sinon
      */
     static async delete(id) {
         try {
+            // Vérifier si la chambre a des réservations
+            const hasReservations = await this.hasReservations(id);
+            if (hasReservations) {
+                throw new Error('Impossible de supprimer cette chambre car elle est utilisée dans des réservations');
+            }
+            
             const [result] = await db.execute('DELETE FROM chambres WHERE idChambre = ?', [id]);
             return true;
         } catch (error) {
-            throw new Error('Erreur lors de la suppression de la chambre: ' + error.message);
+            throw error; // Relancer l'erreur pour qu'elle soit gérée par le contrôleur
         }
     }
 
