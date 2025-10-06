@@ -15,9 +15,9 @@
             <h1 class="text-2xl font-bold mb-4">Chambre <%= chambre.numero %></h1>
 
             <div class="bg-white border p-6">
-                <p class="mb-2"><strong>Numéro:</strong><%= chambre.numero %></p>
-                <p class="mb-2"><strong>Capacité:</strong><%= chambre.capacite %> personne(s)</p>
-                <p class="mb-4"><strong>Statut:</strong>
+                <p class="mb-2"><strong>Numéro : </strong><%= chambre.numero %></p>
+                <p class="mb-2"><strong>Capacité : </strong><%= chambre.capacite %> <%= chambre.capacite > 1 ? "personnes" : "personne" %></td>
+                <p class="mb-4"><strong>Statut : </strong>
                     <% if (chambre.disponibilite==1) { %>Disponible<% } else { %>Occupée<% } %>
                 </p>
 

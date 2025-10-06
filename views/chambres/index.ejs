@@ -14,7 +14,7 @@
         <div class="max-w-6xl mx-auto p-6">
             <h1 class="text-2xl font-bold mb-2">Chambres</h1>
             <p class="text-gray-600 mb-4">
-                <%= chambres.length %> chambre(s) disponible(s)
+                <%= chambres.length %> <%= chambres.length > 1 ? "chambres" : "chambre" %>
             </p>
 
             <div class="mb-4">
@@ -40,7 +40,7 @@
                             <% for (let chambre of chambres) { %>
                                 <tr class="border-b">
                                     <td class="p-3"><%= chambre.numero %></td>
-                                    <td class="p-3"><%= chambre.capacite %> personne(s)</td>
+                                    <td class="p-3"><%= chambre.capacite %> <%= chambre.capacite > 1 ? "personnes" : "personne" %></td>
                                     <td class="p-3">
                                         <% if (chambre.disponibilite==1) { %>Disponible<% } 
                                         else { %>Occupée<% } %>

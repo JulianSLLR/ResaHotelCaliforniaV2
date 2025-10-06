@@ -15,8 +15,8 @@
             <h1 class="text-2xl font-bold mb-4">Supprimer une chambre</h1>
 
             <div class="bg-white border p-6">
-                <p class="mb-2"><strong>Numéro:</strong><%= chambre.numero %></p>
-                <p class="mb-4"><strong>Capacité:</strong><%= chambre.capacite %> personne(s)</p>
+                <p class="mb-2"><strong>Numéro : </strong><%= chambre.numero %></p>
+                <p class="mb-4"><strong>Capacité : </strong><%= chambre.capacite %> <%= chambre.capacite > 1 ? "personnes" : "personne" %></td>
                 <p class="mb-4"><strong>Êtes-vous sûr de vouloir supprimer cette chambre ?</strong></p>
 
                 <form action="/chambres/<%= chambre.idChambre %>/delete" method="post">

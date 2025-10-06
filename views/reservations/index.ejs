@@ -13,7 +13,9 @@
 
         <div class="max-w-6xl mx-auto p-6">
             <h1 class="text-2xl font-bold mb-2">Réservations</h1>
-            <p class="text-gray-600 mb-4"><%= reservations.length %> réservation(s)</p>
+            <p class="text-gray-600 mb-4">
+                <%= reservations.length %> <%= reservations.length > 1 ? "réservations" : "réservation" %>
+            </p>
 
             <div class="mb-4">
                 <a href="/reservations/create" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Ajouter une réservation</a>
@@ -56,7 +58,7 @@
                                     <td class="p-3"><%= reservation.nomClient %></td>
                                     <td class="p-3">Chambre <%= reservation.numero %> <span class="text-xs text-gray-500">(cap. <%= reservation.capacite %>)</span></td>
                                     <td class="p-3">Du <%= reservation.getFormattedDateDebut() %> au <%= reservation.getFormattedDateFin() %></td>
-                                    <td class="p-3"><%= nights %> nuit(s)</td>
+                                    <td class="p-3"><%= nights %> <%= nights > 1 ? "nuits" : "nuit" %></td>
                                     <td class="p-3">
                                         <span class="px-2 py-1 text-sm rounded <%= badgeClass %>"><%= statut %></span>
                                     </td>
