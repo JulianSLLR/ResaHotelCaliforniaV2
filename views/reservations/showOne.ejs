@@ -15,9 +15,9 @@
             <h1 class="text-2xl font-bold mb-4">Réservation <%= reservation.idReservation %></h1>
 
             <div class="bg-white border p-6">
-                <p class="mb-2"><strong>Numéro: </strong><%= reservation.idReservation %></p>
-                <p class="mb-2"><strong>Client: </strong><%= reservation.idClient %></p>
-                <p class="mb-2"><strong>Chambre: </strong><%= reservation.idChambre %></p>
+                <p class="mb-2"><strong>Numéro : </strong><%= reservation.idReservation %></p>
+                <p class="mb-2"><strong>Client : </strong><%= reservation.idClient %></p>
+                <p class="mb-2"><strong>Chambre : </strong><%= reservation.idChambre %></p>
                 <% 
                   const now = new Date();
                   const start = new Date(reservation.dateDebut);
@@ -27,8 +27,8 @@
                   else if (now >= start && now <= end) statut = 'En cours';
                   else statut = 'Terminée';
                 %>
-                <p class="mb-2"><strong>Séjour: </strong>Du <%= reservation.getFormattedDateDebut() %> au <%= reservation.getFormattedDateFin() %></p>
-                <p class="mb-4"><strong>Statut: </strong><%= statut %></p>
+                <p class="mb-2"><strong>Séjour : </strong>Du <%= reservation.getFormattedDateDebut() %> au <%= reservation.getFormattedDateFin() %></p>
+                <p class="mb-4"><strong>Statut : </strong><%= statut %></p>
 
                 <div class="flex gap-2 mt-4">
                     <a href="/reservations" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Retour</a>
