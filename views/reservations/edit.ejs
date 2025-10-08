@@ -25,8 +25,8 @@
                   else statut = 'Terminée';
                 %>
                 <div class="mb-6 p-4 bg-gray-50 border">
-                    <p class="mb-1"><strong>Séjour: </strong>Du <%= reservation.getFormattedDateDebut() %> au <%= reservation.getFormattedDateFin() %></p>
-                    <p><strong>Statut: </strong><%= statut %></p>
+                    <p class="mb-1"><strong>Séjour : </strong>Du <%= reservation.getFormattedDateDebut() %> au <%= reservation.getFormattedDateFin() %></p>
+                    <p><strong>Statut : </strong><%= statut %></p>
                 </div>
                 <form action="/reservations/<%= reservation.idReservation %>/edit" method="post">
                     <input type="hidden" name="idReservation" value="<%= reservation.idReservation %>">

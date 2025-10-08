@@ -9,7 +9,17 @@
 </head>
 
 <body class="bg-gray-50">
-        <%- include('/views/partials/navbar') %>
+    <nav class="bg-gray-800 text-white p-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Hotel California</h1>
+            <ul class="flex gap-6">
+                 <li><a href="/" class="hover:underline">Accueil</a></li>
+                <li><a href="/chambres" class="hover:underline">Chambres</a></li>
+                <li><a href="/reservations" class="hover:underline">Réservations</a></li>
+                <li><a href="/clients" class="hover:underline">Clients</a></li>
+            </ul>
+        </div>
+    </nav>
 
         <div class="max-w-6xl mx-auto p-6">
             <h1 class="text-2xl font-bold mb-4">Client <%= client.nom %></h1>

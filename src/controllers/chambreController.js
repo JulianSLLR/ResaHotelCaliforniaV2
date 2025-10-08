@@ -123,6 +123,6 @@ class ChambreController {
         }
     }
 
-
 }
+
 export default ChambreController;

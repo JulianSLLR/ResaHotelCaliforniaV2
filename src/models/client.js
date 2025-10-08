@@ -71,12 +71,10 @@ class Client {
      * @param {*} clientData - Les données de la chambre à mettre à jour
      * @returns {boolean} - true si la mise à jour a réussi, false sinon
      */
-    async update(clientData) {
+    static async update(clientData) {
         try {
-            await db.execute(
-                'UPDATE clients SET nom = ?, telephone = ?, email = ?, nbPersonnes = ? WHERE id = ?',
-                [clientData.nom, clientData.telephone, clientData.email, clientData.nbPersonnes, this.id]
-            );
+            const [result] = await db.execute('UPDATE clients SET nom = ?, telephone = ?, email = ?, nbPersonnes = ? WHERE idClient = ?', 
+                [clientData.nom, clientData.telephone, clientData.email, clientData.nbPersonnes, clientData.idClient]);
             this.nom = clientData.nom;
             this.telephone = clientData.telephone;
             this.email = clientData.email;
@@ -96,18 +94,18 @@ class Client {
      * @param {*} id - L'ID de la chambre à supprimer
      * @returns {boolean} - true si la suppression a réussi, false sinon
      */
-    async delete(id) {
+    static async delete(id) {
         try {
+
             // Vérifier si le client a des réservations affectés
             const [reservations] = await db.execute(
-                'SELECT COUNT(*) as count FROM reservations WHERE idClient = ?',
-                [id]
-            );
+                'SELECT COUNT(*) FROM reservations WHERE idClient = ?', [id]);
 
             if (reservations[0].count > 0) {
                 throw new Error('Impossible de supprimer le client car il a des réservations affectés');
             }
-            await db.execute('DELETE FROM clients WHERE id = ?', [id]);
+
+            await db.execute('DELETE FROM clients WHERE idClient = ?', [id]);
             return true;
         } catch (error) {
             throw new Error('Erreur lors de la suppression du client: ' + error.message);

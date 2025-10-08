@@ -68,15 +68,14 @@ class ClientController {
      * @param {Object} res - L'objet de la réponse
      */
     static async updateForm(req, res) {
-    try {
-        const client = await Client.findById(req.params.id);
-        res.render('clients/edit', { client });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Erreur lors de la récupération du client');
+        try {
+            const client = await Client.findById(req.params.id);
+            res.render('clients/edit', { client });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Erreur lors de la récupération du client');
+        }
     }
-}
-
 
     /**
      * Traiter la modification d'un client
@@ -123,6 +122,6 @@ class ClientController {
         }
     }
 
-
 }
+
 export default ClientController;
