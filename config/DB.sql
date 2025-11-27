@@ -1,3 +1,7 @@
+CREATE DATABASE resahotelcaliforniasd;
+
+USE resahotelcaliforniasd;
+
 CREATE TABLE chambres (
     idChambre INT AUTO_INCREMENT PRIMARY KEY,
     numero INT NOT NULL,

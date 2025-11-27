@@ -103,7 +103,7 @@ class Chambre {
             if (hasReservations) {
                 throw new Error('Impossible de supprimer cette chambre car elle est utilisée dans des réservations');
             }
-            
+
             const [result] = await db.execute('DELETE FROM chambres WHERE idChambre = ?', [id]);
             return true;
         } catch (error) {
