@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>404</title>
-</head>
+  </head>
 
-<body>
+  <body class="min-h-screen flex flex-col bg-gray-50">
     <%- include('./partials/navbar') %>
-        <div class="container mx-auto px-4 py-12">
-            <h1 class="text-2xl font-bold mb-4 text-center">404 - Page non trouvée</h1>
-            <p class="text-gray-600 mb-4 text-center">La page que vous cherchez n'existe pas ou n'est plus disponible.
-            </p>
-            <p class="text-center"><a href="/" class="text-blue-600 hover:underline">Retour à la page d'accueil</a></p>
-            <p class="text-center"><img src="/images/404.webp" alt="404" class="mx-auto mb-4"></p>
-        </div>
-        <%- include('./partials/footer') %>
-</body>
-
+    <div class="flex-1 container mx-auto px-4 py-12">
+      <h1 class="text-2xl font-bold mb-4 text-center">
+        404 - Page non trouvée
+      </h1>
+      <p class="text-gray-600 mb-4 text-center">
+        La page que vous cherchez n'existe pas ou n'est plus disponible.
+      </p>
+      <p class="text-center">
+        <a href="/" class="text-blue-600 hover:underline"
+          >Retour à la page d'accueil</a
+        >
+      </p>
+      <p class="text-center">
+        <img src="/images/404.webp" alt="404" class="mx-auto mb-4" />
+      </p>
+    </div>
+    <%- include('./partials/footer') %>
+  </body>
 </html>
