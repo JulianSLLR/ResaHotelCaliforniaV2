@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Client <%= client.nom %> - Hôtel California</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  </head>
 
-<body class="bg-gray-50">
+  <body class="bg-gray-50">
     <nav class="bg-gray-800 text-white p-4">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold">Hotel California</h1>
-            <ul class="flex gap-6">
-                 <li><a href="/" class="hover:underline">Accueil</a></li>
-                <li><a href="/chambres" class="hover:underline">Chambres</a></li>
-                <li><a href="/reservations" class="hover:underline">Réservations</a></li>
-                <li><a href="/clients" class="hover:underline">Clients</a></li>
-            </ul>
-        </div>
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-bold">Hotel California</h1>
+        <ul class="flex gap-6">
+          <li><a href="/" class="hover:underline">Accueil</a></li>
+          <li><a href="/chambres" class="hover:underline">Chambres</a></li>
+          <li>
+            <a href="/reservations" class="hover:underline">Réservations</a>
+          </li>
+          <li><a href="/clients" class="hover:underline">Clients</a></li>
+        </ul>
+      </div>
     </nav>
 
-        <div class="max-w-6xl mx-auto p-6">
-            <h1 class="text-2xl font-bold mb-4">Client <%= client.nom %></h1>
+    <div class="max-w-6xl mx-auto p-6">
+      <h1 class="text-2xl font-bold mb-4">Client <%= client.nom %></h1>
 
-            <div class="bg-white border p-6">
-                <p class="mb-2"><strong>Nom : </strong><%= client.nom %></p>
-                <p class="mb-2"><strong>Téléphone : </strong><%= client.telephone %></p>
-                <p class="mb-4"><strong>Email : </strong><%= client.email %></p>
-                <p class="mb-4"><strong>Nombre de personnes : </strong><%= client.nbPersonnes %></p>
+      <div class="bg-white border p-6">
+        <p class="mb-2"><strong>Nom : </strong><%= client.nom %></p>
+        <p class="mb-2"><strong>Téléphone : </strong><%= client.telephone %></p>
+        <p class="mb-4"><strong>Email : </strong><%= client.email %></p>
+        <p class="mb-4">
+          <strong>Nombre de personnes : </strong><%= client.nbPersonnes %>
+        </p>
 
-                <div class="flex gap-2 mt-4">
-                    <a href="/clients" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Retour</a>
-                    <a href="/clients/<%= client.idClient %>/edit" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Modifier</a>
-                    <a href="/clients/<%= client.idClient %>/delete" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700">Supprimer</a>
-                </div>
-            </div>
+        <div class="flex gap-2 mt-4">
+          <a
+            href="/clients"
+            class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700"
+            >Retour</a
+          >
+          <a
+            href="/clients/<%= client.idClient %>/edit"
+            class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700"
+            >Modifier</a
+          >
+          <a
+            href="/clients/<%= client.idClient %>/delete"
+            class="bg-red-600 text-white px-4 py-2 hover:bg-red-700"
+            >Supprimer</a
+          >
         </div>
-</body>
-
+      </div>
+    </div>
+  </body>
 </html>
