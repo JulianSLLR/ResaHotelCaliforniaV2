@@ -75,6 +75,49 @@
       <% } %>
     </div>
 
+<<<<<<< HEAD
+            <% if (chambres.length === 0) { %>
+                <div class="bg-white border p-4">
+                    <p><strong>Aucune chambre disponible</strong></p>
+                    <p>Commencez par ajouter une chambre.</p>
+                </div>
+                <% } else { %>
+                    <table class="w-full bg-white border">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left p-3">Numéro</th>
+                                <th class="text-left p-3">Capacité</th>
+                                <th class="text-left p-3">Statut</th>
+                                <th class="text-left p-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (let chambre of chambres) { %>
+                                <tr class="border-b">
+                                    <td class="p-3"><%= chambre.numero %></td>
+                                    <td class="p-3"><%= chambre.capacite %> <%= chambre.capacite > 1 ? "personnes" : "personne" %></td>
+                                    <td class="p-3">
+                                        <% if (chambre.disponibilite==1) { %>Disponible<% } 
+                                        else { %>Occupée<% } %>
+                                    </td>
+                                    <td class="p-3">
+                                        <a href="/chambres/<%= chambre.idChambre %>" class="text-blue-600 hover:underline mr-2">Voir</a>
+                                        <a href="/chambres/<%= chambre.idChambre %>/edit" class="text-blue-600 hover:underline mr-2">Modifier</a>
+                                        <a href="/chambres/<%= chambre.idChambre %>/delete" class="text-red-600 hover:underline">Supprimer</a>
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </tbody>
+                    </table>
+                    <% } %>
+        </div>
+
+        <%- include('../partials/footer') %>
+</body>
+
+</html>
+=======
     <%- include('../partials/footer') %>
   </body>
 </html>
+>>>>>>> 0e400e997bd817461ce7379e4b83f3d7b5a2064d
