@@ -30,10 +30,10 @@
           <strong>Chambre : </strong>
           <%= reservation.idChambre %>
         </p>
-        <% const now=new Date(); const start=new Date(reservation.dateDebut);
-        const end=new Date(reservation.dateFin); let statut='' ; if (now <
-        start) statut='À venir' ; else if (now>= start && now <= end) statut='En
-        cours' ; else statut='Terminée' ; %>
+        <% const now = new Date(); const start = new
+        Date(reservation.dateDebut); const end = new Date(reservation.dateFin);
+        let statut = ''; if (now < start) statut = 'À venir'; else if (now >=
+        start && now <= end) statut = 'En cours'; else statut = 'Terminée'; %>
         <p class="mb-2">
           <strong>Séjour : </strong>Du <%= reservation.getFormattedDateDebut()
           %> au <%= reservation.getFormattedDateFin() %>
