@@ -1,95 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Supprimer une chambre - Hôtel California</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
 
-  <body class="flex flex-col min-h-screen bg-gray-50">
-    <%- include('../partials/navbar') %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supprimer une chambre - Hôtel California</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-50">
+  <%- include('../partials/navbar') %>
 
     <div class="max-w-6xl mx-auto p-6 flex-1">
       <h1 class="text-2xl font-bold mb-4">Supprimer une chambre</h1>
 
-      <% if (typeof error !== 'undefined' && error) { %>
-      <div
-        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
-      >
-        <strong>Erreur :</strong> <%= error %>
-      </div>
-      <% } %>
-
-<<<<<<< HEAD
-            <div class="bg-white border p-6">
-                <p class="mb-2"><strong>Numéro : </strong><%= chambre.numero %></p>
-                <p class="mb-4"><strong>Capacité : </strong><%= chambre.capacite %> <%= chambre.capacite > 1 ? "personnes" : "personne" %></p>
-                
-                <% if (typeof error !== 'undefined' && error) { %>
-                    <p class="mb-4 text-red-600"><strong>Cette chambre ne peut pas être supprimée.</strong></p>
-                    <div class="flex gap-2">
-                        <a href="/chambres" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Retour à la liste</a>
-                        <a href="/chambres/<%= chambre.idChambre %>" class="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700">Voir la chambre</a>
-                    </div>
-                <% } else { %>
-                    <p class="mb-4"><strong>Êtes-vous sûr de vouloir supprimer cette chambre ?</strong></p>
-                    <form action="/chambres/<%= chambre.idChambre %>/delete" method="post">
-                        <div class="flex gap-2">
-                            <a href="/chambres" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Annuler</a>
-                            <button type="submit" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700">Supprimer</button>
-                        </div>
-                    </form>
-                <% } %>
-            </div>
-=======
-      <div class="bg-white border p-6">
-        <p class="mb-2"><strong>Numéro : </strong><%= chambre.numero %></p>
-        <p class="mb-4">
-          <strong>Capacité : </strong><%= chambre.capacite %> <%=
-          chambre.capacite > 1 ? "personnes" : "personne" %>
-        </p>
-
-        <% if (typeof error !== 'undefined' && error) { %>
-        <p class="mb-4 text-red-600">
-          <strong>Cette chambre ne peut pas être supprimée.</strong>
-        </p>
-        <div class="flex gap-2">
-          <a
-            href="/chambres"
-            class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700"
-            >Retour à la liste</a
-          >
-          <a
-            href="/chambres/<%= chambre.idChambre %>"
-            class="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700"
-            >Voir la chambre</a
-          >
->>>>>>> 0e400e997bd817461ce7379e4b83f3d7b5a2064d
+      <% if (typeof error !=='undefined' && error) { %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <strong>Erreur :</strong>
+          <%= error %>
         </div>
-        <% } else { %>
-        <p class="mb-4">
-          <strong>Êtes-vous sûr de vouloir supprimer cette chambre ?</strong>
-        </p>
-        <form action="/chambres/<%= chambre.idChambre %>/delete" method="post">
-          <div class="flex gap-2">
-            <a
-              href="/chambres"
-              class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700"
-              >Annuler</a
-            >
-            <button
-              type="submit"
-              class="bg-red-600 text-white px-4 py-2 hover:bg-red-700"
-            >
-              Supprimer
-            </button>
-          </div>
-        </form>
         <% } %>
-      </div>
+
+          <div class="bg-white border p-6">
+            <p class="mb-2"><strong>Numéro : </strong>
+              <%= chambre.numero %>
+            </p>
+            <p class="mb-4">
+              <strong>Capacité : </strong>
+              <%= chambre.capacite %>
+                <%= chambre.capacite> 1 ? "personnes" : "personne" %>
+            </p>
+
+            <% if (typeof error !=='undefined' && error) { %>
+              <p class="mb-4 text-red-600">
+                <strong>Cette chambre ne peut pas être supprimée.</strong>
+              </p>
+              <div class="flex gap-2">
+                <a href="/chambres" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Retour à la liste</a>
+                <a href="/chambres/<%= chambre.idChambre %>"
+                  class="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700">Voir la chambre</a>
+              </div>
+
+              <% } else { %>
+                <p class="mb-4"><strong>Êtes-vous sûr de vouloir supprimer cette chambre ?</strong></p>
+                <form action="/chambres/<%= chambre.idChambre %>/delete" method="post">
+                  <div class="flex gap-2">
+                    <a href="/chambres" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Annuler</a>
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700">Supprimer</button>
+                  </div>
+                </form>
+                <% } %>
+          </div>
     </div>
 
     <%- include('../partials/footer') %>
-  </body>
+</body>
+
 </html>
