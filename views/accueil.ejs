@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accueil - Hôtel California</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  </head>
 
-<body class="bg-gray-50">
+  <body class="bg-gray-50">
     <%- include('partials/navbar') %>
 
-        <div class="max-w-6xl mx-auto p-6">
+    <div class="max-w-6xl mx-auto p-6">
+      <div>
+        <img
+          src="../images/hotel_california.jpg"
+          alt="Hotel California"
+          class="w-full h-64 object-cover rounded-lg"
+        />
+      </div>
+      <h1 class="text-center text-3xl font-bold mb-8 mt-8">
+        Bienvenue à l'Hôtel California
+      </h1>
 
-            <div>
-                <img src="../images/hotel_california.jpg" alt="Hotel California"
-                    class="w-full h-64 object-cover rounded-lg">
-            </div>
-            <h1 class="text-center text-3xl font-bold mb-8 mt-8">Bienvenue à l'Hôtel California</h1>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/chambres" class="bg-white border p-6 hover:border-gray-400">
+          <h2 class="text-xl font-bold mb-2">Chambres</h2>
+          <p class="text-gray-600">Gérer les chambres de l'hôtel</p>
+        </a>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="/chambres" class="bg-white border p-6 hover:border-gray-400">
-                    <h2 class="text-xl font-bold mb-2">Chambres</h2>
-                    <p class="text-gray-600">Gérer les chambres de l'hôtel</p>
-                </a>
+        <a
+          href="/reservations"
+          class="bg-white border p-6 hover:border-gray-400"
+        >
+          <h2 class="text-xl font-bold mb-2">Réservations</h2>
+          <p class="text-gray-600">Gérer les réservations</p>
+        </a>
 
-                <a href="/reservations" class="bg-white border p-6 hover:border-gray-400">
-                    <h2 class="text-xl font-bold mb-2">Réservations</h2>
-                    <p class="text-gray-600">Gérer les réservations</p>
-                </a>
+        <a href="/clients" class="bg-white border p-6 hover:border-gray-400">
+          <h2 class="text-xl font-bold mb-2">Clients</h2>
+          <p class="text-gray-600">Gérer les clients</p>
+        </a>
+      </div>
+    </div>
 
-                <a href="/clients" class="bg-white border p-6 hover:border-gray-400">
-                    <h2 class="text-xl font-bold mb-2">Clients</h2>
-                    <p class="text-gray-600">Gérer les clients</p>
-                </a>
-            </div>
-        </div>
-
-        <%- include('partials/footer') %>
-</body>
-
+    <%- include('partials/footer') %>
+  </body>
 </html>
