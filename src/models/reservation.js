@@ -49,6 +49,32 @@ class Reservation {
     }
 
     /**
+     * Formater la date de début pour l'input date (AAAA-MM-JJ)
+     * @returns {string} - La date formatée (AAAA-MM-JJ)
+     */
+    getIsoDateDebut() {
+        if (!this.dateDebut) return '';
+        const date = new Date(this.dateDebut);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    /**
+     * Formater la date de fin pour l'input date (AAAA-MM-JJ)
+     * @returns {string} - La date formatée (AAAA-MM-JJ)
+     */
+    getIsoDateFin() {
+        if (!this.dateFin) return '';
+        const date = new Date(this.dateFin);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    /**
      * Récupérer toutes les réservations
      * @returns {Array} - La liste des réservations
      */

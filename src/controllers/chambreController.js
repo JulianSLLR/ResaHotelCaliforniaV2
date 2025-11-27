@@ -12,7 +12,7 @@ class ChambreController {
      */
     static async getAll(req, res) {
         try {
-            const chambres = await Chambre.findAll(); 
+            const chambres = await Chambre.findAll();
             res.render('chambres/index', { chambres });
         } catch (error) {
             console.error(error);
@@ -106,7 +106,7 @@ class ChambreController {
             res.status(500).send('Erreur lors de la récupération de la chambre');
         }
     }
-    
+
     /**
      * Traiter la suppression d'une chambre
      * @param {Object} req - L'objet de la requête
@@ -118,21 +118,21 @@ class ChambreController {
             res.redirect('/chambres');
         } catch (error) {
             console.error(error);
-            
+
             // Si l'erreur indique que la chambre est utilisée dans des réservations
             if (error.message.includes('utilisée dans des réservations')) {
                 // Récupérer la chambre pour l'afficher dans le template d'erreur
                 try {
                     const chambre = await Chambre.findById(req.params.id);
-                    return res.render('chambres/delete', { 
-                        chambre, 
-                        error: 'Impossible de supprimer cette chambre car elle est utilisée dans des réservations actives.' 
+                    return res.render('chambres/delete', {
+                        chambre,
+                        error: 'Impossible de supprimer cette chambre car elle est utilisée dans des réservations actives.'
                     });
                 } catch (findError) {
                     return res.status(500).send('Erreur lors de la récupération de la chambre');
                 }
             }
-            
+
             res.status(500).send('Erreur lors de la suppression de la chambre: ' + error.message);
         }
     }
