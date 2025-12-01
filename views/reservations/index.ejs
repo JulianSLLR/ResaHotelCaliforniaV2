@@ -8,10 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-50 flex flex-col min-h-screen">
     <%- include('../partials/navbar') %>
 
-        <div class="max-w-6xl mx-auto p-6">
+        <div class="max-w-6xl mx-auto p-6 flex-1 w-full">
             <h1 class="text-2xl font-bold mb-2">Réservations</h1>
             <p class="text-gray-600 mb-4"><%= reservations.length %> <%= reservations.length > 1 ? "réservations" : "réservation" %></p>
 
@@ -60,6 +60,7 @@
                                     <td class="p-3">
                                         <span class="px-2 py-1 text-sm rounded <%= badgeClass %>"><%= statut %></span>
                                     </td>
+                                    
                                     <td class="p-3">
                                         <a href="/reservations/<%= reservation.idReservation %>" class="text-blue-600 hover:underline mr-2">Voir</a>
                                         <a href="/reservations/<%= reservation.idReservation %>/edit" class="text-blue-600 hover:underline mr-2">Modifier</a>
