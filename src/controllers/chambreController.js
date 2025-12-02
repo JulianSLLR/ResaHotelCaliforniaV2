@@ -55,7 +55,11 @@ class ChambreController {
             res.redirect('/chambres');
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erreur lors de la création de la chambre');
+            const chambreData = { ...req.body, idChambre: req.params.id || req.body.idChambre };
+            res.render('chambres/create', { 
+                error: error.message, 
+                chambre: req.body 
+            });
         }
     }
 
@@ -85,7 +89,11 @@ class ChambreController {
             res.redirect('/chambres');
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erreur lors de la modification de la chambre');
+            const chambreData = { ...req.body, idChambre: req.params.id || req.body.idChambre };
+            res.render('chambres/create', { 
+                error: error.message, 
+                chambre: req.body 
+            });
         }
     }
 

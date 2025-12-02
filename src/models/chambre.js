@@ -51,6 +51,14 @@ class Chambre {
      * @returns {number} - L'ID de la chambre créée
      */
     static async create(chambreData) {
+        if (chambreData.numero <= 0) {
+            throw new Error('Le numéro de la chambre ne peut pas être négatif ou égal à 0.');
+        }
+
+        if (chambreData.capacite <= 0) {
+            throw new Error('La capacité de la chambre ne peut pas être négative ou égale à 0.');
+        }
+
         try {
             const [result] = await db.execute('INSERT INTO chambres (numero, capacite, disponibilite) VALUES (?, ?, ?)', [chambreData.numero, chambreData.capacite, chambreData.disponibilite]);
             return result.insertId;
@@ -65,6 +73,14 @@ class Chambre {
      * @returns {boolean} - true si la mise à jour a réussi, false sinon
      */
     static async update(chambreData) {
+        if (chambreData.numero <= 0) {
+            throw new Error('Le numéro de la chambre ne peut pas être négatif ou égal à 0.');
+        }
+
+        if (chambreData.capacite <= 0) {
+            throw new Error('La capacité de la chambre ne peut pas être négative ou égale à 0.');
+        }
+        
         try {
             const [result] = await db.execute('UPDATE chambres SET numero = ?, capacite = ?, disponibilite = ? WHERE idChambre = ?', [chambreData.numero, chambreData.capacite, chambreData.disponibilite, chambreData.idChambre]);
             this.numero = chambreData.numero;
