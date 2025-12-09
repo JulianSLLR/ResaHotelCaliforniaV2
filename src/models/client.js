@@ -6,9 +6,9 @@ class Client {
      * Constructeur de la classe Client
      * @param {Object} data - Les données du client
      * @param {number} data.idClient - L'ID du client
-     * @param {number} data.nom - Le nom du client
-     * @param {number} data.telephone - Le téléphone du client
-     * @param {number} data.email - L'email du client
+     * @param {string} data.nom - Le nom du client
+     * @param {tel} data.telephone - Le téléphone du client
+     * @param {email} data.email - L'email du client
      * @param {number} data.nbPersonnes - Le nombre de personnes
      */
     constructor(data) {
@@ -52,6 +52,26 @@ class Client {
      * @returns {number} - L'ID du client crée
      */
     static async create(clientData) {
+        if (/\d/.test(clientData.nom)) {
+            throw new Error("Le nom ne peut pas contenir de chiffres.");
+        }
+
+        if (clientData.nbPersonnes <= 0) {
+            throw new Error('Le nombre de personnes ne peut pas être négatif ou égal à 0.');
+        }
+
+        // Cette regex vérifie le format standard : texte@texte.extension
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(clientData.email)) {
+            throw new Error("L'adresse email n'est pas valide.");
+        }
+
+        // Cette regex accepte les formats français courants (0612345678, 06 12 34 56 78, 06.12..., +33 6...)
+        const telephoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+        if (!telephoneRegex.test(clientData.telephone)) {
+            throw new Error("Le numéro de téléphone n'est pas valide (format attendu : 06 12 34 56 78).");
+        }
+
         try {
             const [result] = await db.execute(
                 'INSERT INTO clients (nom, telephone, email, nbPersonnes) VALUES (?, ?, ?, ?)',
@@ -72,6 +92,26 @@ class Client {
      * @returns {boolean} - true si la mise à jour a réussi, false sinon
      */
     static async update(clientData) {
+        if (/\d/.test(clientData.nom)) {
+            throw new Error("Le nom ne peut pas contenir de chiffres.");
+        }
+        
+        if (clientData.nbPersonnes <= 0) {
+            throw new Error('Le nombre de personnes ne peut pas être négatif ou égal à 0.');
+        }
+
+        // Cette regex vérifie le format standard : texte@texte.extension
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(clientData.email)) {
+            throw new Error("L'adresse email n'est pas valide.");
+        }
+
+        // Cette regex accepte les formats français courants (0612345678, 06 12 34 56 78, 06.12..., +33 6...)
+        const telephoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+        if (!telephoneRegex.test(clientData.telephone)) {
+            throw new Error("Le numéro de téléphone n'est pas valide (format attendu : 06 12 34 56 78).");
+        }
+        
         try {
             const [result] = await db.execute('UPDATE clients SET nom = ?, telephone = ?, email = ?, nbPersonnes = ? WHERE idClient = ?', 
                 [clientData.nom, clientData.telephone, clientData.email, clientData.nbPersonnes, clientData.idClient]);

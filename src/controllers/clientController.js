@@ -58,7 +58,11 @@ class ClientController {
             res.redirect('/clients');
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erreur lors de la création du client');
+            const clientData = { ...req.body, idClient: req.params.id || req.body.idClient };
+            res.render('clients/create', { 
+                error: error.message, 
+                client: req.body 
+            });        
         }
     }
 
@@ -88,7 +92,11 @@ class ClientController {
             res.redirect('/clients');
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erreur lors de la modification du client');
+            const clientData = { ...req.body, idClient: req.params.id || req.body.idClient };
+            res.render('clients/edit', { 
+                error: error.message, 
+                client: clientData 
+            });        
         }
     }
 

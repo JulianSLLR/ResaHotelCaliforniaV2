@@ -8,7 +8,7 @@ class Chambre {
      * @param {number} data.idChambre - L'ID de la chambre
      * @param {number} data.numero - Le numéro de la chambre
      * @param {number} data.capacite - La capacité de la chambre
-     * @param {number} data.disponibilite - La disponibilité de la chambre
+     * @param {boolean} data.disponibilite - La disponibilité de la chambre
      */
     constructor(data) {
         this.idChambre = data.idChambre;

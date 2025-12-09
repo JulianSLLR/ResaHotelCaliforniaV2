@@ -25,6 +25,13 @@
             <h1 class="text-2xl font-bold mb-4">Modifier un client</h1>
 
             <div class="bg-white border p-6">
+
+                <% if (typeof error !=='undefined' && error) { %>
+                    <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 15px;">
+                        <%= error %>
+                    </div>
+                <% } %>
+
                 <form action="/clients/<%= client.idClient %>/edit" method="post">
                     <input type="hidden" name="idClient" value="<%= client.idClient %>">
                     <div class="mb-4">

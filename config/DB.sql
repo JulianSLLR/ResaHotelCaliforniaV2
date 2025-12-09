@@ -12,10 +12,11 @@ CREATE TABLE chambres (
 
 CREATE TABLE clients (
     idClient INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
+    nom VARCHAR(100) NOT NULL,
     telephone VARCHAR(15) NOT NULL,
     email VARCHAR(255) NOT NULL,
     nbPersonnes INT NOT NULL
+    UNIQUE (email)
 );
 
 CREATE TABLE reservations (

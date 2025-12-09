@@ -9,12 +9,29 @@
 </head>
 
 <body class="bg-gray-50 flex flex-col min-h-screen">
-    <%- include('../partials/navbar') %>
+    <nav class="bg-gray-800 text-white p-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Hotel California</h1>
+            <ul class="flex gap-6">
+                 <li><a href="/" class="hover:underline">Accueil</a></li>
+                <li><a href="/chambres" class="hover:underline">Chambres</a></li>
+                <li><a href="/reservations" class="hover:underline">Réservations</a></li>
+                <li><a href="/clients" class="hover:underline">Clients</a></li>
+            </ul>
+        </div>
+    </nav>
 
         <div class="max-w-6xl mx-auto p-6 flex-1 w-full">
             <h1 class="text-2xl font-bold mb-4">Ajouter un client</h1>
 
             <div class="bg-white border p-6">
+
+                <% if (typeof error !=='undefined' && error) { %>
+                    <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 15px;">
+                        <%= error %>
+                    </div>
+                <% } %>
+
                 <form action="/clients/" method="POST">
                     <div class="mb-4">
                         <label class="block font-bold mb-1">Nom</label>
@@ -46,7 +63,9 @@
             </div>
         </div>
 
-        <%- include('../partials/footer') %>
+        <footer class="bg-gray-800 text-white p-4 mt-8">
+            <p>&copy; 2025 Hôtel California. Tous droits réservés.</p>
+        </footer>
 </body>
 
 </html>
