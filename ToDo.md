@@ -1,2 +1,2 @@
 Réservations :
-- Possibilité de créer une réservation avec une date de début plus récente que la date de fin de séjour (à revoir)
+- Quand on ajoute une réservation et que c'est invalide : faire en sorte que ça n'efface pas les champs "Client" et "Chambre"

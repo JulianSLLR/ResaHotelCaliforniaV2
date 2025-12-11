@@ -49,6 +49,7 @@ class ReservationController {
             res.status(500).send('Erreur lors de la récupération des clients et des chambres');
         }
     }
+
     /**
      * Créer une réservation
      * @param {Object} req - L'objet de la requête
@@ -60,7 +61,17 @@ class ReservationController {
             res.redirect('/reservations');
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erreur lors de la création de la réservation');
+            const reservationData = { ...req.body, idReservation: req.params.id || req.body.idReservation };
+            const clients = await Client.findAll();
+            const chambres = await Chambre.findAll();
+            const reservation = new Reservation(req.body);
+            reservation.idReservation = req.params.id;
+            res.render('reservations/create', { 
+                error: error.message, 
+                reservation: reservation,
+                clients: clients,
+                chambres: chambres
+            });
         }
     }
 
@@ -85,6 +96,7 @@ class ReservationController {
      * Modifier une réservation
      * @param {Object} req - L'objet de la requête
      * @param {Object} res - L'objet de la réponse
+     *
      */
     static async update(req, res) {
         try {
@@ -92,7 +104,17 @@ class ReservationController {
             res.redirect('/reservations');
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erreur lors de la modification de la réservation');
+            const reservationData = { ...req.body, idReservation: req.params.id || req.body.idReservation };
+            const clients = await Client.findAll();
+            const chambres = await Chambre.findAll();
+            const reservation = new Reservation(req.body);
+            reservation.idReservation = req.params.id;
+            res.render('reservations/edit', { 
+                error: error.message, 
+                reservation: reservation,
+                clients: clients,
+                chambres: chambres
+            });
         }
     }
     /**     

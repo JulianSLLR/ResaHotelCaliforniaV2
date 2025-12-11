@@ -123,6 +123,10 @@ class Reservation {
      * @returns {number} - L'ID de la reservation créée
      */
     static async create(reservationData) {
+         if (reservationData.dateDebut >= reservationData.dateFin) {
+            throw new Error('La date de début de la réservation ne peut pas être ultérieure à la date de fin.');
+        }
+
         try {
             const [result] = await db.execute(
                 'INSERT INTO reservations (idClient, idChambre, dateDebut, dateFin) VALUES (?, ?, ?, ?)',
@@ -143,6 +147,10 @@ class Reservation {
      * @returns {boolean} - true si la mise à jour a réussi, false sinon
      */
     static async update(reservationData) {
+         if (reservationData.dateDebut >= reservationData.dateFin) {
+            throw new Error('La date de début de la réservation ne peut pas être ultérieure à la date de fin.');
+        }
+
         try {
             await db.execute(
                 'UPDATE reservations SET idClient = ?, idChambre = ?, dateDebut = ?, dateFin = ? WHERE idReservation = ?',
