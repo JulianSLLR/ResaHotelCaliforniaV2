@@ -14,12 +14,14 @@ router.get('/create', reservationController.createForm);
 router.get('/:id', reservationController.getOne);
 
 // Créer une réservation (traitement du formulaire)
-router.post('/', checkReservation, reservationController.create);
+// router.post('/', checkReservation, reservationController.create);
+router.post('/', reservationController.create);
 
 // Afficher le formulaire de modification
 router.get('/:id/edit', reservationController.updateForm);
 // Mettre à jour une réservation (traitement du formulaire)
-router.post('/:id/edit', checkReservation, reservationController.update);
+// router.post('/:id/edit', checkReservation, reservationController.update);
+router.post('/:id/edit', reservationController.update);
 
 // Afficher la confirmation de suppression
 router.get('/:id/delete', reservationController.deleteForm);

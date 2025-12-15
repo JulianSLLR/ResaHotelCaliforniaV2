@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter une réservation - Hôtel California</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 flex flex-col min-h-screen">
     <%- include('../partials/navbar') %>
     
@@ -13,8 +15,14 @@
         <h1 class="text-2xl font-bold mb-4">Ajouter une réservation</h1>
         
         <div class="bg-white border p-6">
-            <form action="/reservations/" method="POST">
 
+        <% if (typeof error !=='undefined' && error) { %>
+          <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 15px;">
+            <%= error %>
+          </div>
+        <% } %>
+
+            <form action="/reservations/" method="POST">
                 <div class="mb-4">
                     <label class="block font-bold mb-1">Client</label>
                     <select name="idClient" required class="w-full border p-2">

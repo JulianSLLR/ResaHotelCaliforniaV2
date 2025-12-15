@@ -15,6 +15,12 @@
             <h1 class="text-2xl font-bold mb-4">Modifier une réservation</h1>
 
             <div class="bg-white border p-6">
+                 <% if (typeof error !=='undefined' && error) { %>
+                    <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 15px;">
+                        <%= error %>
+                     </div>
+                 <% } %>
+
                 <% const now=new Date(); const start=new Date(reservation.dateDebut); const end=new
                     Date(reservation.dateFin); let statut='' ; if (now < start) statut='À venir' ; else if (now>= start
                     && now <= end) statut='En cours' ; else statut='Terminée' ; %>
@@ -26,6 +32,7 @@
                                 <%= statut %>
                             </p>
                         </div>
+
                         <form action="/reservations/<%= reservation.idReservation %>/edit" method="post">
                             <input type="hidden" name="idReservation" value="<%= reservation.idReservation %>">
 
