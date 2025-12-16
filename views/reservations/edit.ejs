@@ -21,6 +21,12 @@
                      </div>
                  <% } %>
 
+                <% 
+                const dateMax = new Date();
+                dateMax.setFullYear(dateMax.getFullYear() + 2);
+                const dateMaxString = dateMax.toISOString().split('T')[0];
+                %>
+                
                 <% const now=new Date(); const start=new Date(reservation.dateDebut); const end=new
                     Date(reservation.dateFin); let statut='' ; if (now < start) statut='À venir' ; else if (now>= start
                     && now <= end) statut='En cours' ; else statut='Terminée' ; %>
@@ -69,13 +75,13 @@
 
                             <div class="mb-4">
                                 <label class="block font-bold mb-1">Date de début</label>
-                                <input type="date" name="dateDebut" value="<%= reservation.getIsoDateDebut() %>" required
+                                <input type="date" name="dateDebut" value="<%= reservation.getIsoDateDebut() %>" max="<%= dateMaxString %>" required
                                     class="w-full border p-2">
                             </div>
 
                             <div class="mb-4">
                                 <label class="block font-bold mb-1">Date de fin</label>
-                                <input type="date" name="dateFin" value="<%= reservation.getIsoDateFin() %>" required
+                                <input type="date" name="dateFin" value="<%= reservation.getIsoDateFin() %>" max="<%= dateMaxString %>" required
                                     class="w-full border p-2">
                             </div>
 

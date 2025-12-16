@@ -1,71 +1,103 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajouter une réservation - Hôtel California</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  </head>
 
-<body class="bg-gray-50 flex flex-col min-h-screen">
+  <body class="bg-gray-50 flex flex-col min-h-screen">
     <%- include('../partials/navbar') %>
-    
+
     <div class="max-w-6xl mx-auto p-6 flex-1 w-full">
-        <h1 class="text-2xl font-bold mb-4">Ajouter une réservation</h1>
-        
-        <div class="bg-white border p-6">
+      <h1 class="text-2xl font-bold mb-4">Ajouter une réservation</h1>
 
+      <div class="bg-white border p-6">
         <% if (typeof error !=='undefined' && error) { %>
-          <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 15px;">
-            <%= error %>
-          </div>
-        <% } %>
-
-            <form action="/reservations/" method="POST">
-                <div class="mb-4">
-                    <label class="block font-bold mb-1">Client</label>
-                    <select name="idClient" required class="w-full border p-2">
-                        <option value="">Sélectionner un client</option>
-                        <% for (let client of clients) { %>
-                            <option value="<%= client.idClient %>">
-                                <%= client.nom %> <%= client.prenom %> (ID: <%= client.idClient %>)
-                            </option>
-                        <% } %>
-                    </select>
-                </div>
-                
-                <div class="mb-4">
-                <label class="block font-bold mb-1">Chambre</label>
-                <select name="idChambre" required class="w-full border p-2">
-                    <option value="">Sélectionner une chambre</option>
-                    <% for (let chambre of chambres) { %>
-                        <option value="<%= chambre.idChambre %>">
-                            Chambre <%= chambre.numero %> - <%= chambre.capacite %> personne(s)
-                            <% if (chambre.disponibilite == 1) { %>(Disponible)<% } else { %>(Occupée)<% } %>
-                        </option>
-                    <% } %>
-                </select>
-                </div>
-                
-                <div class="mb-4">
-                    <label class="block font-bold mb-1">Date de début</label>
-                    <input type="date" name="dateDebut" required class="w-full border p-2">
-                </div>
-                
-                <div class="mb-4">
-                    <label class="block font-bold mb-1">Date de fin</label>
-                    <input type="date" name="dateFin" required class="w-full border p-2">
-                </div>
-                
-                <div class="flex gap-2">
-                    <a href="/reservations" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Annuler</a>
-                    <button type="submit" class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700">Créer</button>
-                </div>
-            </form>
+        <div
+          style="
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-bottom: 15px;
+          "
+        >
+          <%= error %>
         </div>
+        <% } %> <% const dateMax=new Date();
+        dateMax.setFullYear(dateMax.getFullYear() + 2); const
+        dateMaxString=dateMax.toISOString().split('T')[0]; %>
+
+        <form action="/reservations/" method="POST">
+          <div class="mb-4">
+            <label class="block font-bold mb-1">Client</label>
+            <select name="idClient" required class="w-full border p-2">
+              <option value="">Sélectionner un client</option>
+              <% for (let client of clients) { %>
+              <option value="<%= client.idClient %>">
+                <%= client.nom %> <%= client.prenom %> (ID: <%= client.idClient
+                %>)
+              </option>
+              <% } %>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label class="block font-bold mb-1">Chambre</label>
+            <select name="idChambre" required class="w-full border p-2">
+              <option value="">Sélectionner une chambre</option>
+              <% for (let chambre of chambres) { %>
+              <option value="<%= chambre.idChambre %>">
+                Chambre <%= chambre.numero %> - <%= chambre.capacite %>
+                personne(s) <% if (chambre.disponibilite==1) { %>(Disponible)<%
+                } else { %>(Occupée)<% } %>
+              </option>
+              <% } %>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label class="block font-bold mb-1">Date de début</label>
+            <input
+              type="date"
+              name="dateDebut"
+              max="<%= dateMaxString %>"
+              required
+              class="w-full border p-2"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="block font-bold mb-1">Date de fin</label>
+            <input
+              type="date"
+              name="dateFin"
+              max="<%= dateMaxString %>"
+              required
+              class="w-full border p-2"
+            />
+          </div>
+
+          <div class="flex gap-2">
+            <a
+              href="/reservations"
+              class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700"
+              >Annuler</a
+            >
+            <button
+              type="submit"
+              class="bg-gray-800 text-white px-4 py-2 hover:bg-gray-700"
+            >
+              Créer
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-    
+
     <%- include('../partials/footer') %>
-</body>
+  </body>
 </html>
