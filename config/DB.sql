@@ -15,7 +15,8 @@ CREATE TABLE clients (
     nom VARCHAR(100) NOT NULL,
     telephone VARCHAR(15) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    nbPersonnes INT NOT NULL
+    nbPersonnes INT NOT NULL,
+    UNIQUE (telephone),
     UNIQUE (email)
 );
 
