@@ -80,7 +80,7 @@ class Client {
             return result.insertId;
         } catch (error) {
             if (error.code === 'ER_DUP_ENTRY') {
-                throw new Error('Ce ce client existe déjà');
+                throw new Error('Ce client existe déjà');
             }
             throw new Error('Erreur lors de la création du client: ' + error.message);
         }
