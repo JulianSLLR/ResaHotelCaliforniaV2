@@ -127,6 +127,12 @@ class Reservation {
             throw new Error('La date de début de la réservation ne peut pas être ultérieure à la date de fin.');
         }
 
+        const twoYearsFromNow = new Date();
+        twoYearsFromNow.setFullYear(twoYearsFromNow.getFullYear() + 2);
+        if (new Date(reservationData.dateDebut) > twoYearsFromNow) {
+             throw new Error('La réservation ne peut pas être effectuée plus de 2 ans à l\'avance.');
+        }
+
         try {
             const [result] = await db.execute(
                 'INSERT INTO reservations (idClient, idChambre, dateDebut, dateFin) VALUES (?, ?, ?, ?)',
@@ -149,6 +155,12 @@ class Reservation {
     static async update(reservationData) {
          if (reservationData.dateDebut >= reservationData.dateFin) {
             throw new Error('La date de début de la réservation ne peut pas être ultérieure à la date de fin.');
+        }
+
+        const twoYearsFromNow = new Date();
+        twoYearsFromNow.setFullYear(twoYearsFromNow.getFullYear() + 2);
+        if (new Date(reservationData.dateDebut) > twoYearsFromNow) {
+             throw new Error('La réservation ne peut pas être effectuée plus de 2 ans à l\'avance.');
         }
 
         try {
