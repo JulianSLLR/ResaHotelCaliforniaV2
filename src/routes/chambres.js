@@ -1,5 +1,5 @@
 import express from 'express';
-import chambreController from '../controllers/chambreController.js';
+import chambreController from '../controllers/ChambreController.js';
 // import { checkChambre } from '../validators/chambreValidator.js';
 const router = express.Router();
 
