@@ -3,6 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import routes from './src/routes/index.js';
+import apiRoutes from './src/api/routes/index.js';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,8 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/', routes);
+app.use('/api', apiRoutes);
 
-//middleware 404 (doit être AVANT app.listen)
+
+//middleware 404 
 app.use((req, res, next) => {
     res.status(404).render('404');
 });
