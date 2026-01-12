@@ -2,6 +2,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import routes from './src/routes/index.js';
+import apiRoutes from './src/api/routes/index.js';
 import https from 'https';
 import fs from 'node:fs';
 import path from 'node:path';
