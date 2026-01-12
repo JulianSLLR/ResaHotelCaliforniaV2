@@ -1,8 +1,16 @@
 import Chambre from '../../models/chambre.js';
 
+/**
+ * Contrôleur pour la gestion des chambres via l'API.
+ */
 class ChambreController {
 
-    // GET /api/chambres
+    /**
+     * Récupère la liste de toutes les chambres.
+     * @param {import('express').Request} req - L'objet de requête Express.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async getAll(req, res) {
         try {
             const chambres = await Chambre.findAll();
@@ -13,7 +21,12 @@ class ChambreController {
         }
     }
 
-    // GET /api/chambres/:id
+    /**
+     * Récupère une chambre spécifique par son identifiant.
+     * @param {import('express').Request} req - L'objet de requête Express.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async getOne(req, res) {
         try {
             const chambre = await Chambre.findById(req.params.id);
@@ -27,7 +40,12 @@ class ChambreController {
         }
     }
 
-    // POST /api/chambres
+    /**
+     * Crée une nouvelle chambre.
+     * @param {import('express').Request} req - L'objet de requête Express contenant les données de la chambre dans `req.body`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async create(req, res) {
         try {
             const newChambre = await Chambre.create(req.body);
@@ -38,7 +56,12 @@ class ChambreController {
         }
     }
 
-    // PUT /api/chambres/:id
+    /**
+     * Met à jour une chambre existante.
+     * @param {import('express').Request} req - L'objet de requête Express contenant l'ID dans `req.params.id` et les données dans `req.body`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async update(req, res) {
         try {
             const updatedChambre = await Chambre.update({ ...req.body, idChambre: req.params.id });
@@ -49,7 +72,12 @@ class ChambreController {
         }
     }
 
-    // DELETE /api/chambres/:id
+    /**
+     * Supprime une chambre.
+     * @param {import('express').Request} req - L'objet de requête Express contenant l'ID dans `req.params.id`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async delete(req, res) {
         try {
             await Chambre.delete(req.params.id);

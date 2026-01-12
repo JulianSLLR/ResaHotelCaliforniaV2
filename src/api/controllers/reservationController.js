@@ -1,7 +1,15 @@
 import Reservation from "../../models/reservation.js"; // Ajout du .js
 
+/**
+ * Contrôleur pour la gestion des réservations via l'API.
+ */
 class ReservationController {
-    // GET /api/reservations
+    /**
+     * Récupère la liste de toutes les réservations.
+     * @param {import('express').Request} req - L'objet de requête Express.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async getAll(req, res) {
         try {
             const reservations = await Reservation.findAll();
@@ -12,7 +20,12 @@ class ReservationController {
         }
     }
 
-    // GET /api/reservations/:id
+    /**
+     * Récupère une réservation spécifique par son identifiant.
+     * @param {import('express').Request} req - L'objet de requête Express.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async getOne(req, res) {
         try {
             const reservation = await Reservation.findById(req.params.id);
@@ -26,7 +39,12 @@ class ReservationController {
         }
     }
 
-    // POST /api/reservations
+    /**
+     * Crée une nouvelle réservation.
+     * @param {import('express').Request} req - L'objet de requête Express contenant les données de la réservation dans `req.body`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async create(req, res) {
         try {
             const newReservationId = await Reservation.create(req.body);
@@ -38,7 +56,12 @@ class ReservationController {
         }
     }
 
-    // PUT /api/reservations/:id
+    /**
+     * Met à jour une réservation existante.
+     * @param {import('express').Request} req - L'objet de requête Express contenant l'ID dans `req.params.id` et les données dans `req.body`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async update(req, res) {
         try {
             // On combine l'ID de l'URL avec les données du corps de la requête
@@ -59,7 +82,12 @@ class ReservationController {
         }
     }
 
-    // DELETE /api/reservations/:id
+    /**
+     * Supprime une réservation.
+     * @param {import('express').Request} req - L'objet de requête Express contenant l'ID dans `req.params.id`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async delete(req, res) {
         try {
             await Reservation.delete(req.params.id);
