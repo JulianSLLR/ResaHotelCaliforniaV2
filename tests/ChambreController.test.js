@@ -1,16 +1,20 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import ChambreController from './ChambreController.js'; // Assurez-vous que le chemin est correct
-import Chambre from '../models/chambre.js';
 
-// On mocke (simule) le modèle Chambre pour ne pas taper dans la vraie BDD
-vi.mock('../models/chambre.js');
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import ChambreController from '../src/controllers/ChambreController.js';
+import Chambre from '../src/models/chambre.js';
+
+// Mock the Chambre model
+vi.mock('../src/models/chambre.js');
 
 describe('ChambreController', () => {
     let req;
     let res;
 
-    // Avant chaque test, on réinitialise req et res
     beforeEach(() => {
+        // Reset mocks before each test
+        vi.clearAllMocks();
+
+        // Setup req and res mocks
         req = {
             params: {},
             body: {}
@@ -18,20 +22,14 @@ describe('ChambreController', () => {
         res = {
             render: vi.fn(),
             redirect: vi.fn(),
-            status: vi.fn().mockReturnThis(), // Pour permettre le chaînage .status().send()
+            status: vi.fn().mockReturnThis(),
             send: vi.fn()
         };
     });
 
-    // Nettoyage des mocks après chaque test
-    afterEach(() => {
-        vi.clearAllMocks();
-    });
-
-    // --- Tests pour getAll ---
     describe('getAll', () => {
-        it('devrait récupérer les chambres et rendre la vue index', async () => {
-            const mockChambres = [{ id: 1, nom: 'Suite' }];
+        it('should render chambres/index with a list of chambres', async () => {
+            const mockChambres = [{ id: 1, numero: 101 }, { id: 2, numero: 102 }];
             Chambre.findAll.mockResolvedValue(mockChambres);
 
             await ChambreController.getAll(req, res);
@@ -40,21 +38,25 @@ describe('ChambreController', () => {
             expect(res.render).toHaveBeenCalledWith('chambres/index', { chambres: mockChambres });
         });
 
-        it('devrait gérer les erreurs et renvoyer une 500', async () => {
-            Chambre.findAll.mockRejectedValue(new Error('Erreur BDD'));
+        it('should handle errors', async () => {
+            const error = new Error('Database connection failed');
+            Chambre.findAll.mockRejectedValue(error);
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
             await ChambreController.getAll(req, res);
 
+            expect(consoleSpy).toHaveBeenCalledWith(error);
             expect(res.status).toHaveBeenCalledWith(500);
-            expect(res.send).toHaveBeenCalledWith(expect.stringContaining('Erreur'));
+            expect(res.send).toHaveBeenCalledWith('Erreur lors de la récupération des chambres');
+            
+            consoleSpy.mockRestore();
         });
     });
 
-    // --- Tests pour getOne ---
     describe('getOne', () => {
-        it('devrait récupérer une chambre et rendre la vue showOne', async () => {
+        it('should render chambres/showOne with the requested chambre', async () => {
+            const mockChambre = { id: 1, numero: 101 };
             req.params.id = 1;
-            const mockChambre = { id: 1, nom: 'Eco' };
             Chambre.findById.mockResolvedValue(mockChambre);
 
             await ChambreController.getOne(req, res);
@@ -63,25 +65,32 @@ describe('ChambreController', () => {
             expect(res.render).toHaveBeenCalledWith('chambres/showOne', { chambre: mockChambre });
         });
 
-        it('devrait gérer les erreurs (500)', async () => {
-            Chambre.findById.mockRejectedValue(new Error('Erreur'));
+        it('should handle errors', async () => {
+            const error = new Error('Database error');
+            req.params.id = 1;
+            Chambre.findById.mockRejectedValue(error);
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
             await ChambreController.getOne(req, res);
+
+            expect(consoleSpy).toHaveBeenCalledWith(error);
             expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.send).toHaveBeenCalledWith('Erreur lors de la récupération de la chambre');
+
+            consoleSpy.mockRestore();
         });
     });
 
-    // --- Tests pour createForm ---
     describe('createForm', () => {
-        it('devrait rendre le formulaire de création', async () => {
+        it('should render chambres/create', async () => {
             await ChambreController.createForm(req, res);
             expect(res.render).toHaveBeenCalledWith('chambres/create');
         });
     });
 
-    // --- Tests pour create ---
     describe('create', () => {
-        it('devrait créer une chambre et rediriger', async () => {
-            req.body = { nom: 'Nouvelle Chambre' };
+        it('should create a chambre and redirect', async () => {
+            req.body = { numero: 105, type: 'Double' };
             Chambre.create.mockResolvedValue(true);
 
             await ChambreController.create(req, res);
@@ -90,36 +99,59 @@ describe('ChambreController', () => {
             expect(res.redirect).toHaveBeenCalledWith('/chambres');
         });
 
-        it('devrait gérer les erreurs de création (500)', async () => {
-            Chambre.create.mockRejectedValue(new Error('Fail'));
+        it('should handle creation errors by rendering the form with error', async () => {
+            const error = new Error('Validation failed');
+            req.body = { numero: 105 };
+            req.params.id = 1337; // Simulate existing ID if applicable logic was slightly different, but following controller logic
+            Chambre.create.mockRejectedValue(error);
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
             await ChambreController.create(req, res);
-            expect(res.status).toHaveBeenCalledWith(500);
+
+            expect(consoleSpy).toHaveBeenCalledWith(error);
+            // The controller merges params.id or body.idChambre.
+            const expectedChambreData = { ...req.body, idChambre: 1337 }; 
+            
+            expect(res.render).toHaveBeenCalledWith('chambres/create', {
+                error: error.message,
+                chambre: req.body
+            });
+            
+            consoleSpy.mockRestore();
         });
     });
 
-    // --- Tests pour updateForm ---
     describe('updateForm', () => {
-        it('devrait récupérer la chambre et rendre le formulaire d\'édition', async () => {
+        it('should render chambres/edit with the chambre data', async () => {
+            const mockChambre = { id: 1, numero: 101 };
             req.params.id = 1;
-            const mockChambre = { id: 1, nom: 'Old Name' };
             Chambre.findById.mockResolvedValue(mockChambre);
 
             await ChambreController.updateForm(req, res);
 
+            expect(Chambre.findById).toHaveBeenCalledWith(1);
             expect(res.render).toHaveBeenCalledWith('chambres/edit', { chambre: mockChambre });
         });
 
-        it('devrait gérer les erreurs (500)', async () => {
-            Chambre.findById.mockRejectedValue(new Error('Erreur'));
+        it('should handle errors', async () => {
+            const error = new Error('Database error');
+            req.params.id = 1;
+            Chambre.findById.mockRejectedValue(error);
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
             await ChambreController.updateForm(req, res);
+
+            expect(consoleSpy).toHaveBeenCalledWith(error);
             expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.send).toHaveBeenCalledWith('Erreur lors de la récupération de la chambre');
+
+            consoleSpy.mockRestore();
         });
     });
 
-    // --- Tests pour update ---
     describe('update', () => {
-        it('devrait mettre à jour et rediriger', async () => {
-            req.body = { id: 1, nom: 'New Name' };
+        it('should update the chambre and redirect', async () => {
+            req.body = { id: 1, numero: 102 };
             Chambre.update.mockResolvedValue(true);
 
             await ChambreController.update(req, res);
@@ -128,27 +160,40 @@ describe('ChambreController', () => {
             expect(res.redirect).toHaveBeenCalledWith('/chambres');
         });
 
-        it('devrait gérer les erreurs de mise à jour (500)', async () => {
-            Chambre.update.mockRejectedValue(new Error('Fail'));
+        it('should handle update errors by rendering the edit form with error', async () => {
+            const error = new Error('Update failed');
+            req.body = { numero: 102 };
+            req.params.id = 1;
+            Chambre.update.mockRejectedValue(error);
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
             await ChambreController.update(req, res);
-            expect(res.status).toHaveBeenCalledWith(500);
+
+            expect(consoleSpy).toHaveBeenCalledWith(error);
+            const expectedChambreData = { ...req.body, idChambre: 1 };
+            expect(res.render).toHaveBeenCalledWith('chambres/edit', {
+                error: error.message,
+                chambre: expectedChambreData
+            });
+
+            consoleSpy.mockRestore();
         });
     });
 
-    // --- Tests pour deleteForm ---
     describe('deleteForm', () => {
-        it('devrait afficher la confirmation de suppression si la chambre existe', async () => {
+        it('should render chambres/delete if chambre exists', async () => {
+            const mockChambre = { id: 1, numero: 101 };
             req.params.id = 1;
-            const mockChambre = { id: 1 };
             Chambre.findById.mockResolvedValue(mockChambre);
 
             await ChambreController.deleteForm(req, res);
 
+            expect(Chambre.findById).toHaveBeenCalledWith(1);
             expect(res.render).toHaveBeenCalledWith('chambres/delete', { chambre: mockChambre, error: null });
         });
 
-        it('devrait renvoyer 404 si la chambre n\'existe pas', async () => {
-            req.params.id = 999;
+        it('should return 404 if chambre not found', async () => {
+            req.params.id = 1;
             Chambre.findById.mockResolvedValue(null);
 
             await ChambreController.deleteForm(req, res);
@@ -157,16 +202,24 @@ describe('ChambreController', () => {
             expect(res.send).toHaveBeenCalledWith('Chambre non trouvée');
         });
 
-        it('devrait gérer les erreurs (500)', async () => {
-            Chambre.findById.mockRejectedValue(new Error('Erreur'));
+        it('should handle errors', async () => {
+            req.params.id = 1;
+            const error = new Error('DB Error');
+            Chambre.findById.mockRejectedValue(error);
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
             await ChambreController.deleteForm(req, res);
+
+            expect(consoleSpy).toHaveBeenCalledWith(error);
             expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.send).toHaveBeenCalledWith('Erreur lors de la récupération de la chambre');
+
+            consoleSpy.mockRestore();
         });
     });
 
-    // --- Tests pour delete (Complexe) ---
     describe('delete', () => {
-        it('devrait supprimer la chambre et rediriger en cas de succès', async () => {
+        it('should delete the chambre and redirect', async () => {
             req.params.id = 1;
             Chambre.delete.mockResolvedValue(true);
 
@@ -176,48 +229,64 @@ describe('ChambreController', () => {
             expect(res.redirect).toHaveBeenCalledWith('/chambres');
         });
 
-        it('devrait gérer le cas spécifique : chambre utilisée dans des réservations', async () => {
+        it('should handle specific "used in reservations" error', async () => {
             req.params.id = 1;
-            const mockChambre = { id: 1, nom: 'Occupée' };
-            
-            // 1. Simuler l'erreur spécifique
-            const error = new Error('Impossible... car utilisée dans des réservations...');
+            const error = new Error('Impossible de supprimer cette chambre car elle est utilisée dans des réservations');
             Chambre.delete.mockRejectedValue(error);
             
-            // 2. Simuler la récupération de la chambre pour ré-afficher le formulaire
+            const mockChambre = { id: 1, numero: 101 };
             Chambre.findById.mockResolvedValue(mockChambre);
+            
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
             await ChambreController.delete(req, res);
 
-            // Vérifications
+            expect(consoleSpy).toHaveBeenCalledWith(error);
             expect(Chambre.findById).toHaveBeenCalledWith(1);
             expect(res.render).toHaveBeenCalledWith('chambres/delete', {
                 chambre: mockChambre,
-                error: expect.stringContaining('Impossible de supprimer cette chambre')
+                error: 'Impossible de supprimer cette chambre car elle est utilisée dans des réservations actives.'
             });
+
+            consoleSpy.mockRestore();
         });
 
-        it('devrait gérer une erreur lors du findById dans le catch de suppression', async () => {
-             // Cas rare : erreur delete "réservation" PUIS erreur findById
-             req.params.id = 1;
-             const error = new Error('utilisée dans des réservations');
-             Chambre.delete.mockRejectedValue(error);
-             Chambre.findById.mockRejectedValue(new Error('Erreur DB critique'));
- 
-             await ChambreController.delete(req, res);
- 
-             expect(res.status).toHaveBeenCalledWith(500);
-             expect(res.send).toHaveBeenCalledWith('Erreur lors de la récupération de la chambre');
-        });
-
-        it('devrait gérer les autres erreurs de suppression (500 générique)', async () => {
+        it('should handle generic errors during delete', async () => {
             req.params.id = 1;
-            Chambre.delete.mockRejectedValue(new Error('Autre erreur SQL'));
+            const error = new Error('Generic Delete Error');
+            Chambre.delete.mockRejectedValue(error);
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
             await ChambreController.delete(req, res);
 
+            expect(consoleSpy).toHaveBeenCalledWith(error);
             expect(res.status).toHaveBeenCalledWith(500);
-            expect(res.send).toHaveBeenCalledWith(expect.stringContaining('Autre erreur SQL'));
+            expect(res.send).toHaveBeenCalledWith('Erreur lors de la suppression de la chambre: Generic Delete Error');
+
+            consoleSpy.mockRestore();
+        });
+        
+        it('should handle error when finding chambre after reservation dependency error', async () => {
+             req.params.id = 1;
+            const deleteError = new Error('Impossible de supprimer cette chambre car elle est utilisée dans des réservations');
+            Chambre.delete.mockRejectedValue(deleteError);
+            
+            const findError = new Error('Find Error');
+            Chambre.findById.mockRejectedValue(findError);
+            
+            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+            await ChambreController.delete(req, res);
+
+            // Should first log the delete error
+            expect(consoleSpy).toHaveBeenCalledWith(deleteError);
+            
+            // Then respond with 500
+             expect(res.status).toHaveBeenCalledWith(500);
+             expect(res.send).toHaveBeenCalledWith('Erreur lors de la récupération de la chambre');
+
+            consoleSpy.mockRestore();
         });
     });
+
 });
