@@ -76,11 +76,11 @@ DB_NAME=hotel_db
 Cette application fonctionne en HTTPS. Vous devez générer des certificats auto-signés pour le développement :
 
 1.  Créez un dossier `ssl` à la racine.
-2.  Générez les clés (avec `mkcert` ou `openssl`) :
+2.  Générez les clés (avec `openssl`) :
     ```bash
     mkdir ssl
     # Exemple avec mkcert
-    mkcert -key-file ssl/private.key -cert-file ssl/certificate.crt localhost
+    openssl req -x509 -newkey rsa:4096 -keyout ssl/private.key -out ssl/certificate.crt -days 365 -nodes
     ```
 
 ## 🏃 Utilisation
