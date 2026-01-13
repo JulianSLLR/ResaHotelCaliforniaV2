@@ -1,6 +1,5 @@
 import express from 'express';
 import clientController from '../controllers/clientController.js';
-// import { checkClient } from '../validators/clientValidator.js';
 const router = express.Router();
 
 // CRUD - Routes pour les clients
@@ -10,18 +9,19 @@ router.get('/', clientController.getAll);
 
 // Afficher le formulaire de création
 router.get('/create', clientController.createForm);
+
 // Créer un client (traitement du formulaire)
-// router.post('/', checkClient, clientController.create);
 router.post('/', clientController.create)
 
 // Afficher le formulaire de modification
 router.get('/:id/edit', clientController.updateForm);
+
 // Mettre à jour un client (traitement du formulaire)
-// router.post('/:id/edit', checkClient, clientController.update);
 router.post('/:id/edit', clientController.update)
 
 // Afficher la confirmation de suppression
 router.get('/:id/delete', clientController.deleteForm);
+
 // Supprimer un client
 router.post('/:id/delete', clientController.delete);
 

@@ -1,7 +1,15 @@
 import Client from '../../models/client.js'; 
 
+/**
+ * Contrôleur pour la gestion des clients via l'API.
+ */
 class ClientController {
-    // GET /api/clients
+    /**
+     * Récupère la liste de tous les clients.
+     * @param {import('express').Request} req - L'objet de requête Express.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async getAll(req, res) {
         try {
             const clients = await Client.findAll();
@@ -12,7 +20,12 @@ class ClientController {
         }
     }
 
-    // GET /api/clients/:id
+    /**
+     * Récupère un client spécifique par son identifiant.
+     * @param {import('express').Request} req - L'objet de requête Express.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async getOne(req, res) {
         try {
             const client = await Client.findById(req.params.id);
@@ -26,7 +39,12 @@ class ClientController {
         }
     }
 
-    // POST /api/clients
+    /**
+     * Crée un nouveau client.
+     * @param {import('express').Request} req - L'objet de requête Express contenant les données du client dans `req.body`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async create(req, res) {
         try {
             const newClient = await Client.create(req.body);
@@ -37,7 +55,12 @@ class ClientController {
         }
     }
 
-    // PUT /api/clients/:id
+    /**
+     * Met à jour un client existant.
+     * @param {import('express').Request} req - L'objet de requête Express contenant l'ID dans `req.params.id` et les données dans `req.body`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async update(req, res) {
         try {
             // Assurez-vous que l'ID est bien passé au modèle si nécessaire
@@ -49,7 +72,12 @@ class ClientController {
         }
     }
 
-    // DELETE /api/clients/:id
+    /**
+     * Supprime un client.
+     * @param {import('express').Request} req - L'objet de requête Express contenant l'ID dans `req.params.id`.
+     * @param {import('express').Response} res - L'objet de réponse Express.
+     * @returns {Promise<void>}
+     */
     static async delete(req, res) {
         try {
             await Client.delete(req.params.id);

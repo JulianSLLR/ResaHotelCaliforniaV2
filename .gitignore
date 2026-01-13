@@ -4,6 +4,7 @@ config/database.ini
 .env.local
 .env.production
 config/configDB.js
+.key
 
 # Dépendances
 node_modules/
@@ -59,3 +60,8 @@ jspm_packages/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+*.key
+*.pem
+*.crt
+
