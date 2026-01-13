@@ -26,12 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/api', apiRoutes);
 
-<<<<<<< HEAD
 // Middleware 404 (doit être AVANT app.listen)
-=======
-
-//middleware 404 
->>>>>>> af0d2b704bc5e80da0f555960c1cd789f2df0f29
 app.use((req, res, next) => {
     res.status(404).render('404');
 });
