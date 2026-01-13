@@ -6,6 +6,8 @@ import apiRoutes from './src/api/routes/index.js';
 import https from 'https';
 import fs from 'node:fs';
 import path from 'node:path';
+import cors from 'cors';
+import morgan from 'morgan';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,10 +25,13 @@ app.use(express.json());
 // Fichiers statiques (CSS, JS, images)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware pour les logs et la sécurité
+app.use(cors());
+app.use(morgan('tiny')); 
+
 // Routes
 app.use('/', routes);
 app.use('/api', apiRoutes);
-
 
 //middleware 404 
 app.use((req, res, next) => {
