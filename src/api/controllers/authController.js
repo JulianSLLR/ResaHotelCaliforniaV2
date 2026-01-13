@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import db from '../../../config/connexion.js';
 
 dotenv.config();
 const SECRET = process.env.SECRET;
@@ -16,38 +18,40 @@ const CtrlAuth = {
         });
       }
 
-      // à remplacer dans la BDD plus tard.
-      if (username === 'admin' && password === 'azerty123') {
+      const [rows] = await db.execute(
+        'SELECT id, username, password_hash, role FROM utilisateurs WHERE username = ?',
+        [username]
+      );
 
-        // Création du token
-        const token = jwt.sign(
-          { id: 0, username },
-          SECRET,
-          { expiresIn: '1 year' }
-        );
-
-        // Envoi du token
-        return res.json({
-          success: true,
-          data: { token }
-        });
-
-      } else {
-        return res.status(401).json({
-          success: false,
-          error: 'Identifiants incorrects.'
-        });
+      if (rows.length === 0) {
+        return res.status(401).json({ success: false, error: "Identifiants incorrects." });
       }
 
+      const user = rows[0];
+
+      const ok = await bcrypt.compare(password, user.password_hash);
+      if (!ok) {
+        return res.status(401).json({ success: false, error: "Identifiants incorrects." });
+      }
+
+      const token = jwt.sign(
+        { id: user.id, username: user.username, role: user.role },
+        SECRET,
+        { expiresIn: '1 hour' }
+      );
+
+      return res.json({ success: true, data: { token } });
+
     } catch (error) {
+      console.error(error);
       return res.status(500).json({
         success: false,
         error: "Erreur lors de l'authentification",
         message: error.message
       });
     }
-  }, 
-  // Vérification du token
+  },
+  
   verifyToken: (req, res, next) => {
     const authHeader = req.headers['authorization'];
     let token;

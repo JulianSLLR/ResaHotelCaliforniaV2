@@ -29,3 +29,15 @@ CREATE TABLE reservations (
     FOREIGN KEY (idClient) REFERENCES clients(idClient),
     FOREIGN KEY (idChambre) REFERENCES chambres(idChambre)
 );
+
+CREATE TABLE utilisateurs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('admin','reception','manager') NOT NULL DEFAULT 'reception'
+);
+
+INSERT INTO utilisateurs (username, password_hash, role) VALUES
+('admin',    '$2b$10$0dAwHLSIZZZoHsvp2pMWROKAAe/4SCPalb89m579L.SyHsPcpxCl6', 'admin'),
+('reception1','$2b$10$0dAwHLSIZZZoHsvp2pMWROKAAe/4SCPalb89m579L.SyHsPcpxCl6', 'reception'),
+('manager1', '$2b$10$0dAwHLSIZZZoHsvp2pMWROKAAe/4SCPalb89m579L.SyHsPcpxCl6', 'manager');
