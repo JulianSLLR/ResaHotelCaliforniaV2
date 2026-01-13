@@ -1,9 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import ChambreController from '../src/controllers/ChambreController.js';
+import ChambreController from '../src/controllers/chambreController.js';
 import Chambre from '../src/models/chambre.js';
 
 // Mock the Chambre model
-vi.mock('../src/models/chambre.js');
 vi.mock('../src/models/chambre.js');
 
 describe('ChambreController', () => {
