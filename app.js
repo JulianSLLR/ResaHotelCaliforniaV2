@@ -33,12 +33,17 @@ app.use(morgan('tiny'));
 app.use('/', routes);
 app.use('/api', apiRoutes);
 
-// Middleware 404 (doit être AVANT app.listen)
+// Mentions légales
+app.get('/mentionslegales', (req, res) => {
+    res.render('mentionslegales');
+});
 
 //middleware 404 
 app.use((req, res, next) => {
     res.status(404).render('404');
 });
+
+
 
 const PORT = 3001;
 
