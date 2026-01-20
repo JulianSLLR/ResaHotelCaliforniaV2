@@ -34,13 +34,13 @@ app.use('/', routes);
 app.use('/api', apiRoutes);
 
 // Mentions légales
-app.get('/mentionslegales', (req, res) => {
-    res.render('mentionslegales');
+app.get('/legal', (req, res) => {
+    res.render('partials/legal');
 });
 
-//middleware 404 
+// Middleware 404 
 app.use((req, res, next) => {
-    res.status(404).render('404');
+    res.status(404).render('partials/404');
 });
 
 
