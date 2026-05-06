@@ -8,6 +8,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import cors from 'cors';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import AuthMiddleware from './src/middlewares/authMiddleware.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -28,6 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Middleware pour les logs et la sécurité
 app.use(cors());
 app.use(morgan('tiny')); 
+app.use(cookieParser());
+app.use(AuthMiddleware.setUser);
 
 // Routes
 app.use('/', routes);
