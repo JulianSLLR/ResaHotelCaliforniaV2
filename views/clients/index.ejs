@@ -31,7 +31,6 @@
                                 <th class="text-left p-3">Nom</th>
                                 <th class="text-left p-3">Téléphone</th>
                                 <th class="text-left p-3">Email</th>
-                                <th class="text-left p-3">Nombre de personnes</th>
                                 <th class="text-left p-3">Actions</th>
                             </tr>
                         </thead>
@@ -41,8 +40,6 @@
                                     <td class="p-3"><%= client.nom %></td>
                                     <td class="p-3"><%= client.telephone %></td>
                                     <td class="p-3"><%= client.email %></td>
-                                    <td class="p-3"><%= client.nbPersonnes %></td>
-                                    </td>
                                     <td class="p-3">
                                         <a href="/clients/<%= client.idClient %>" class="text-blue-600 hover:underline mr-2">Voir</a>
                                         <a href="/clients/<%= client.idClient %>/edit" class="text-blue-600 hover:underline mr-2">Modifier</a>
