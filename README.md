@@ -43,8 +43,8 @@ Le projet est architecturé avec une séparation claire des responsabilités, ut
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/votre-username/projetResaHotelNodejs.git
-cd projetResaHotelNodejs
+git clone https://github.com/JulianSLLR/ResaHotelCaliforniaV2.git
+cd ResaHotelCaliforniaV2
 ```
 
 ### 2. Installer les dépendances
@@ -55,7 +55,7 @@ npm install
 
 ### 3. Configuration de la base de données
 
-Assurez-vous que votre serveur MySQL est en cours d'exécution. Créez une base de données (ex: `hotel_db`) et importez le schéma (si fourni dans `SCHEMA.png` ou fichiers `sql`).
+Assurez-vous que votre serveur MySQL est en cours d'exécution. Créez une base de données (ex: `resahotelcaliforniasd`) et importez le code (si fourni dans `config/DB.sql`).
 
 Configurez votre connexion à la base de données dans `config/configDB.js` ou via des variables d'environnement.
 
